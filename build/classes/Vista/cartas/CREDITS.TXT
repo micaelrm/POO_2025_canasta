@@ -1,0 +1,1406 @@
+###############################################
+OpenGameArt.org automatically generated credits file notice:
+
+THIS FILE IS FOR INFORMATIONAL PURPOSES ONLY.  NO WARRANTY OF ANY KIND IS EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL OPENGAMEART.ORG BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE USE OF THIS FILE OR THE INFORMATION IN IT.
+
+In plain English:  This credits file is automatically generated to the best of our ability, but it remains YOUR RESPONSIBILITY as a game developer to ensure that the art you use is attributed properly.  That is, we can't be held liable even if all of the information in this file is completely wrong.   In addition, some of the art listed in this file may have SPECIAL ATTRIBUTION INSTRUCTIONS that ask that you credit the artist in a particular way, rather than a verbatim copyright notice.  In those cases, you will probably need to hand-edit this file to comply with their instructions.  In some older art, attribution instructions may be included in the art description itself.  Please check the art page to be sure.
+
+We recommend that you delete this notice when you're sure the information here is correct and the attribution instructions are properly followed.  If you aren't the game developer and you're seeing this notice here in the credits, it probably means that the developer hasn't properly verified the attribution information contained herein even though it said they were supposed to do it right on the page where they downloaded this file.  
+###############################################
+
+Title:
+    Metatoken: Unsorted Past This Submission
+
+Author:
+    greysondn
+
+URL:
+    https://opengameart.org/content/metatoken-unsorted-past-this-submission
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * metatoken.png
+
+----------------------------------------
+
+Title:
+    Dice
+
+Author:
+    sunburn
+
+URL:
+    https://opengameart.org/content/dice
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+File(s):
+    * dice.7z
+
+----------------------------------------
+
+Title:
+    Pixel Dominoes
+
+Author:
+    TokyoGeisha
+
+URL:
+    https://opengameart.org/content/pixel-dominoes
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Feel free to use it anyway you want. No credit necessary.
+
+File(s):
+    * Aqua Green.png
+    * Black.png
+    * Dark Blue.png
+    * Dark Green.png
+    * Dark Red.png
+    * Light Blue.png
+    * Light Green.png
+    * Light Red.png
+    * Orange.png
+    * Purple.png
+    * White.png
+    * Yellow.png
+    * AllinOne.zip
+
+----------------------------------------
+
+Title:
+    Playing Cards
+
+Author:
+    Sharm
+
+URL:
+    https://opengameart.org/content/playing-cards
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+    * OGA-BY 3.0 ( http://static.opengameart.org/OGA-BY-3.0.txt )
+
+SPECIAL ATTRIBUTION INSTRUCTIONS:
+    Lanea Zimmerman
+
+File(s):
+    * cards.zip
+    * Cards.psd
+
+----------------------------------------
+
+Title:
+    Playing Cards (Vector & PNG)
+
+Author:
+    Byron Knoll
+
+URL:
+    https://opengameart.org/content/playing-cards-vector-png
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+SPECIAL ATTRIBUTION INSTRUCTIONS:
+    Byron Knoll:
+http://code.google.com/p/vector-playing-cards/
+
+File(s):
+    * Playing Cards.zip
+
+----------------------------------------
+
+Title:
+    Dice & Trumps
+
+Author:
+    Nora Shishi
+
+Collaborators:
+    devurandom, Kumpu
+
+URL:
+    https://opengameart.org/content/dice-trumps
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+Copyright/Attribution Notice:
+    From- cardset-trumps.zip
+
+This card set is based on cards by Nora Shishi (http://noragames.com/), along with additions by
+rh0, usr_share, and Kumpu licensed according to the terms of the Creative Commons 3.0 Attribution license
+(CC-BY 3.0, http://creativecommons.org/licenses/by/3.0/):
+
+http://opengameart.org/content/dice-trumps
+
+File(s):
+    * dice.gif
+    * trumps fixed.gif
+    * 8-bit royals fixed.gif
+    * kumpu_version.png
+    * cardset-trumps.zip
+
+----------------------------------------
+
+Title:
+    Colorful Poker Card Back
+
+Author:
+    jeffshee
+
+URL:
+    https://opengameart.org/content/colorful-poker-card-back
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+File(s):
+    * card back black.png
+    * card back blue.png
+    * card back green.png
+    * card back orange.png
+    * card back purple.png
+    * card back red.png
+
+----------------------------------------
+
+Title:
+    Jumbo Index Playing Cards
+
+Author:
+    saul
+
+URL:
+    https://opengameart.org/content/jumbo-index-playing-cards
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * Decks.zip
+
+----------------------------------------
+
+Title:
+    54 Casino sound effects (cards, dice, chips)
+
+Author:
+    Kenney
+
+URL:
+    https://opengameart.org/content/54-casino-sound-effects-cards-dice-chips
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+SPECIAL ATTRIBUTION INSTRUCTIONS:
+    Credit "Kenney.nl" or "www.kenney.nl", this is not mandatory.
+
+File(s):
+    * kenney_casino-audio.zip
+
+----------------------------------------
+
+Title:
+    Dice collection D6-D10 16x16px
+
+Author:
+    Refeuh
+
+URL:
+    https://opengameart.org/content/dice-collection-d6-d10-16x16px
+
+License(s):
+    * OGA-BY 3.0 ( http://static.opengameart.org/OGA-BY-3.0.txt )
+
+File(s):
+    * D6 Casino Base 16x16.png
+    * D6 Casino 16x16.png
+    * D6-10 Casino 16x16.png
+    * D10 Black Flat 16x16.png
+    * D10 Black Speckled 16x16.png
+    * D10 Black Clouded 16x16.png
+    * D10 White Flat 16x16.png
+    * D10 White Speckled 16x16.png
+    * D10 White Clouded 16x16.png
+    * Dice collection 16x16.zip
+
+----------------------------------------
+
+Title:
+    FREE ASSET PACK - MISC 1
+
+Author:
+    CTatz
+
+URL:
+    https://opengameart.org/content/free-asset-pack-misc-1
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    NO COPYRIGHT/ATTRIBUTION NEEDED: However that being said if you want to attribute me please link to my twitter! At the very least send me a message of your project so I can share it!
+
+File(s):
+    * FreeAssetPackMisc1-By@CamTatz.zip
+
+----------------------------------------
+
+Title:
+    Simple Checkerboard
+
+Author:
+    greysondn
+
+URL:
+    https://opengameart.org/content/simple-checkerboard
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    You may credit me for assembly if you like, as greysondn. This is not mandatory. I did not do the artwork - I merely assembled it and added a filter to soften the edges up a bit. Please also take a look at Kenney&#039;s original attribution notice in the source linked in the description.
+
+File(s):
+    * normal.png
+    * normal.xcf
+
+----------------------------------------
+
+Title:
+    Naval Battle Assets Pack
+
+Author:
+    Cougarmint
+
+URL:
+    https://opengameart.org/content/naval-battle-assets-pack
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+    * OGA-BY 3.0 ( http://static.opengameart.org/OGA-BY-3.0.txt )
+
+Copyright/Attribution Notice:
+    "Naval Battle Assets Pack" by Molly "Cougarmint" Willits
+
+File(s):
+    * Naval Battle Assets.zip
+
+----------------------------------------
+
+Title:
+    Playing Cards Pack
+
+Author:
+    Kenney
+
+URL:
+    https://opengameart.org/content/playing-cards-pack
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Credit "Kenney.nl" or "www.kenney.nl", this is not mandatory.
+
+File(s):
+    * playing-cards-pack.zip
+
+----------------------------------------
+
+Title:
+    Pixel card
+
+Author:
+    AV Reference
+
+URL:
+    https://opengameart.org/content/pixel-card
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * pixel_card_96dpi.svg
+
+----------------------------------------
+
+Title:
+    Madware&#039;s Chess Set
+
+Author:
+    Madware
+
+URL:
+    https://opengameart.org/content/madwares-chess-set
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * madwares_chess_set.zip
+
+----------------------------------------
+
+Title:
+    52 set of cards and background for any game
+
+Author:
+    DaveKun
+
+URL:
+    https://opengameart.org/content/52-set-of-cards-and-background-for-any-game
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+
+File(s):
+    * cards.7z
+
+----------------------------------------
+
+Title:
+    2D Poker Pack
+
+Author:
+    Screaming Brain Studios
+
+URL:
+    https://opengameart.org/content/2d-poker-pack
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Screaming Brain Studios if you feel so inclined, but credit is not required :)
+
+File(s):
+    * sbs_-_2d_poker_pack.zip
+
+----------------------------------------
+
+Title:
+    2D Dominoes Pack
+
+Author:
+    Screaming Brain Studios
+
+URL:
+    https://opengameart.org/content/2d-dominoes-pack
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Screaming Brain Studios if you feel so inclined, but credit is not required :)
+
+File(s):
+    * sbs_-_2d_dominoes_pack.zip
+
+----------------------------------------
+
+Title:
+    2D Chess Pack
+
+Author:
+    Screaming Brain Studios
+
+URL:
+    https://opengameart.org/content/2d-chess-pack
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Credit is always appreciated, but never required :)
+
+File(s):
+    * sbs_-_2d_chess_pack.zip
+
+----------------------------------------
+
+Title:
+    Crystal Game Pieces
+
+Author:
+    Varkalandar
+
+URL:
+    https://opengameart.org/content/crystal-game-pieces
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+    * CC-BY-SA 3.0 ( http://creativecommons.org/licenses/by-sa/3.0/legalcode )
+    * OGA-BY 3.0 ( http://static.opengameart.org/OGA-BY-3.0.txt )
+
+Copyright/Attribution Notice:
+    For attribution, please state my name, Hansjörg Malthaner, and link here: http://opengameart.org/users/varkalandar
+
+File(s):
+    * hjm-crystal_game_pieces_all.png
+
+----------------------------------------
+
+Title:
+    Exotic Game Pieces
+
+Author:
+    Varkalandar
+
+URL:
+    https://opengameart.org/content/exotic-game-pieces
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+    * CC-BY-SA 3.0 ( http://creativecommons.org/licenses/by-sa/3.0/legalcode )
+    * OGA-BY 3.0 ( http://static.opengameart.org/OGA-BY-3.0.txt )
+
+Copyright/Attribution Notice:
+    For attribution, please state my name, Hansjörg Malthaner, and link here: http://opengameart.org/users/varkalandar
+
+File(s):
+    * hjm-fairy_chess_pieces.png
+
+----------------------------------------
+
+Title:
+    Broom Racing course with broom racer
+
+Author:
+    CodyS
+
+URL:
+    https://opengameart.org/content/broom-racing-course-with-broom-racer
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * broom fence tiles.png
+    * broom rider.png
+
+----------------------------------------
+
+Title:
+    Cute playing cards 32x42
+
+Author:
+    Magnesus
+
+URL:
+    https://opengameart.org/content/cute-playing-cards-32x42
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+
+Copyright/Attribution Notice:
+    Tomasz Kucza / magory.net
+
+File(s):
+    * tinycards-free-32x42.zip
+
+----------------------------------------
+
+Title:
+    Cards
+
+Author:
+    paruthidotexe
+
+URL:
+    https://opengameart.org/content/cards-0
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * cards.png
+    * cards_design_01.png
+    * cards.svg
+    * cards_design_02.png
+    * cards_design_03.png
+
+----------------------------------------
+
+Title:
+    Board Game Info
+
+Author:
+    Kenney
+
+URL:
+    https://opengameart.org/content/board-game-info
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Credit "Kenney.nl" or "www.kenney.nl", this is not mandatory.
+
+File(s):
+    * kenney_boardgameinfo.zip
+
+----------------------------------------
+
+Title:
+    Board Game Icons
+
+Author:
+    Kenney
+
+URL:
+    https://opengameart.org/content/board-game-icons
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Credit "Kenney.nl" or "www.kenney.nl", this is not mandatory.
+
+File(s):
+    * kenney_board-game-icons.zip
+
+----------------------------------------
+
+Title:
+    Boardgame Tiles
+
+Author:
+    Sharm
+
+URL:
+    https://opengameart.org/content/boardgame-tiles
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+    * OGA-BY 3.0 ( http://static.opengameart.org/OGA-BY-3.0.txt )
+
+SPECIAL ATTRIBUTION INSTRUCTIONS:
+    Lanea Zimmerman
+
+File(s):
+    * wood.png
+    * marble.png
+    * glass.png
+    * plastic.png
+    * chess.png
+    * checker.png
+    * shogi.png
+    * stones.png
+    * marbles.png
+
+----------------------------------------
+
+Title:
+    Scrabble-like Tiles
+
+Author:
+    TokyoGeisha
+
+URL:
+    https://opengameart.org/content/scrabble-like-tiles
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Feel free to use it anyway you want. No credit necessary.
+
+File(s):
+    * Scrabble Tiles.zip
+
+----------------------------------------
+
+Title:
+    GreyWyvern Playing Card Set
+
+Author:
+    Brian Huisman / GreyWyvern
+
+URL:
+    https://opengameart.org/content/greywyvern-playing-card-set
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Attribution is not necessary but if you wish you can attribute the original work to Brian Huisman (GreyWyvern) and the PySol port to Jordan Irwin (AntumDeluge).
+
+File(s):
+    * greywyvern-cardset.zip
+    * greywyvern-cardset-svg.zip
+    * pysol-cardset-greywyvern-1.3.zip
+    * pysol-cardset-greywyvern-medium-1.3.zip
+    * pysol-cardset-greywyvern-small-1.3.zip
+
+----------------------------------------
+
+Title:
+    Chess pieces and a board
+
+Author:
+    drummyfish
+
+URL:
+    https://opengameart.org/content/chess-pieces-and-a-board
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    not required, you can credit drummyfish
+
+File(s):
+    * chess.zip
+
+----------------------------------------
+
+Title:
+    Cards Set
+
+Author:
+    Sylly
+
+URL:
+    https://opengameart.org/content/cards-set
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * Cards Pack.zip
+
+----------------------------------------
+
+Title:
+    Boardgame pack
+
+Author:
+    Kenney
+
+URL:
+    https://opengameart.org/content/boardgame-pack
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Credit "Kenney.nl" or "www.kenney.nl", this is not mandatory.
+
+File(s):
+    * boardgamePack_v2.zip
+
+----------------------------------------
+
+Title:
+    Playing Cards
+
+Author:
+    Iron Star Media
+
+URL:
+    https://opengameart.org/content/playing-cards-0
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+SPECIAL ATTRIBUTION INSTRUCTIONS:
+    "Terms & Conditions: The free game assets on this site are released under the Creative Commons Attribution Licence. This basically means that you can download them, use them in your game(s) and modify them as you like. If you use them in your games, we’d appreciate a small mention somewhere in the credits / on the website (and a free copy of the game would be cool!). Basically, the only thing we don’t want you to do with our assets is sell them as assets to other developers, either individually, or as part of a collection."
+
+File(s):
+    * Free-Game-Assets-08-Playing-Cards.zip
+
+----------------------------------------
+
+Title:
+    playing cards poker set
+
+Author:
+    metafix
+
+URL:
+    https://opengameart.org/content/playing-cards-poker-set
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * images.zip
+
+----------------------------------------
+
+Title:
+    Playing Cards
+
+Author:
+    droffigc
+
+URL:
+    https://opengameart.org/content/playing-cards-1
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+Copyright/Attribution Notice:
+    Plastic Playing Cards by Gifford Cheung
+licensed under the Creative Commons Attribution 4.0 International License
+To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
+
+File(s):
+    * Cards-Inkscape.svg
+    * Cards.svg
+    * Cards.ai
+
+----------------------------------------
+
+Title:
+    Poker Chips
+
+Author:
+    codeinfernogames
+
+URL:
+    https://opengameart.org/content/poker-chips
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * pokerchips.zip
+
+----------------------------------------
+
+Title:
+    Playing Card Assets (52-cards deck + Chips)
+
+Author:
+    mehrasaur
+
+URL:
+    https://opengameart.org/content/playing-card-assets-52-cards-deck-chips
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * poker_cards_chips_2d.zip
+    * poker_chips_only_2d.zip
+
+----------------------------------------
+
+Title:
+    2D Six-Sided Die
+
+Author:
+    AveryRe
+
+URL:
+    https://opengameart.org/content/2d-six-sided-die
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Since these are just dice, feel free as to not credit me. If you&#039;d like to, please include my name, Avery Ross, in the credits of your project.
+
+File(s):
+    * SixSidedDie.zip
+
+----------------------------------------
+
+Title:
+    Colorful Dices 128x128
+
+Author:
+    n4
+
+URL:
+    https://opengameart.org/content/colorful-dices-128x128
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * dice_by_n4pgamer.png
+    * dice.png
+    * dices_ascii.png
+    * buttons.png
+    * dice_alternative.png
+
+----------------------------------------
+
+Title:
+    Sci-fi chess
+
+Author:
+    drummyfish
+
+URL:
+    https://opengameart.org/content/sci-fi-chess
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    not required, you can credit drummyfish
+
+File(s):
+    * scifi_chess.blend
+
+----------------------------------------
+
+Title:
+    Chess Set
+
+Author:
+    elopez7
+
+URL:
+    https://opengameart.org/content/chess-set
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+Copyright/Attribution Notice:
+    Just my name. 
+Esteban Lopez
+
+File(s):
+    * Chess_Set.zip
+
+----------------------------------------
+
+Title:
+    Cat chess set
+
+Author:
+    OgreofWart
+
+URL:
+    https://opengameart.org/content/cat-chess-set
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    by OgreofWart @ DarkEvil ink.
+
+File(s):
+    * catchess.zip
+
+----------------------------------------
+
+Title:
+    chess pieces
+
+Author:
+    mr0.0nerd
+
+URL:
+    https://opengameart.org/content/chess-pieces-4
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    by mr0.0nerd :http://www.techiediaries.com
+
+File(s):
+    * chess-pieces.zip
+
+----------------------------------------
+
+Title:
+    Chess Set for GBJam
+
+Author:
+    Clint Bellanger
+
+URL:
+    https://opengameart.org/content/chess-set-for-gbjam
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+Copyright/Attribution Notice:
+    Please attribute me by name -- example, say something like "Chess art by Clint Bellanger" in the credits of your work. Optionally you can include a link to this page on OpenGameArt, or to my website at http://clintbellanger.net
+
+
+File(s):
+    * chess_pieces.png
+    * chess_board.png
+    * chess_white.xcf
+    * chess_black.xcf
+
+----------------------------------------
+
+Title:
+    Chess Board
+
+Author:
+    pennomi
+
+URL:
+    https://opengameart.org/content/chess-board
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+SPECIAL ATTRIBUTION INSTRUCTIONS:
+    Attribute me (pennomi), linking back to this OpenGameArt page.
+Also attribute Tiziana for the texture, as noted above.
+
+File(s):
+    * chessboard.zip
+
+----------------------------------------
+
+Title:
+    Chessboard
+
+Author:
+    twin_mice
+
+URL:
+    https://opengameart.org/content/chessboard
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * chessboard.png
+
+----------------------------------------
+
+Title:
+    Seamless Chess or Checkers Squares
+
+Author:
+    Tim_Supermonkey
+
+URL:
+    https://opengameart.org/content/seamless-chess-or-checkers-squares-0
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * chessboard1.png
+    * chessboard2.png
+    * chessboard3.png
+    * chessboard4.png
+    * chessboard5.png
+    * chessboard6.png
+    * chessboardblackandwhite.png
+
+----------------------------------------
+
+Title:
+    Colorful Chess Pieces
+
+Author:
+    Arsonide
+
+URL:
+    https://opengameart.org/content/colorful-chess-pieces
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+SPECIAL ATTRIBUTION INSTRUCTIONS:
+    Attribution of Brian Provan is appreciated, but not necessary.
+
+File(s):
+    * chess.png
+
+----------------------------------------
+
+Title:
+    Chess Pieces
+
+Author:
+    cemkalyoncu
+
+URL:
+    https://opengameart.org/content/chess-pieces-2
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+File(s):
+    * chess.blend
+
+----------------------------------------
+
+Title:
+    Chess Pieces
+
+URL:
+    https://opengameart.org/content/chess-pieces
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * chess.zip
+
+----------------------------------------
+
+Title:
+    Chess Pieces
+
+Author:
+    Clint Bellanger
+
+URL:
+    https://opengameart.org/content/chess-pieces-0
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * chess.blend
+
+----------------------------------------
+
+Title:
+    Dominos
+
+Author:
+    sunburn
+
+URL:
+    https://opengameart.org/content/dominos
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+File(s):
+    * domino set.7z
+
+----------------------------------------
+
+Title:
+    Simple Dice 2
+
+Author:
+    Winterbolt Games
+
+URL:
+    https://opengameart.org/content/simple-dice-2
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * side_1_pip.png
+    * side_2_pips.png
+    * side_3_pips.png
+    * side_4_pips.png
+    * side_5_pips.png
+    * side_6_pips.png
+    * dice.zip
+
+----------------------------------------
+
+Title:
+    PIXEL CHESS
+
+Author:
+    AV Reference
+
+URL:
+    https://opengameart.org/content/pixel-chess
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * pixel_chess_avr.svg
+
+----------------------------------------
+
+Title:
+    Set of Dominoes (up to [6|6])
+
+Author:
+    OnTheBus
+
+URL:
+    https://opengameart.org/content/set-of-dominoes-up-to-66
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Made for the CS 351 Class at UNM
+GO LOBOS!!!
+
+File(s):
+    * dominoes.zip
+
+----------------------------------------
+
+Title:
+    Domino AV
+
+Author:
+    AV Reference
+
+URL:
+    https://opengameart.org/content/domino-av
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * domino_96dpi.svg
+
+----------------------------------------
+
+Title:
+    Playing Cards
+
+Author:
+    CaglarAlperen
+
+URL:
+    https://opengameart.org/content/playing-cards-3
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * Player Cards.zip
+
+----------------------------------------
+
+Title:
+    3d Dice
+
+Author:
+    victorzzt
+
+URL:
+    https://opengameart.org/content/3d-dice
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+
+File(s):
+    * diceshapes.zip
+
+----------------------------------------
+
+Title:
+    Tiny Chess
+
+Author:
+    drummyfish
+
+URL:
+    https://opengameart.org/content/tiny-chess
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * tiny_chess_color.png
+    * tiny_chess_bw.png
+
+----------------------------------------
+
+Title:
+    Tarot Cards (v1.0)
+
+Author:
+    Snowyfox
+
+URL:
+    https://opengameart.org/content/tarot-cards-v10
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+
+Copyright/Attribution Notice:
+    Tarot Cards v1.0 © 2023 by 杉原宇砂鷲 (Usawashi Sugihara) is licensed under Attribution 4.0 International. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+
+Font TeX Gyre Pagella v2.501 is "copyright 2007--2018 for TeX Gyre extensions by B. Jackowski, J.M. Nowacki et al. (on behalf of TeX Users Groups). Vietnamese characters were added by Han The Thanh. This work can be freely used and distributed under the GUST Font License (GFL) which is actually an instance of the LaTeX Project Public License (LPPL -- see http://www.latex-project.org/lppl.txt)."
+
+Font VL Gothic is "copyright: 1990-2003 Wada Laboratory, the University of Tokyo; 2003-2004 Electronic Font Open Laboratory (/efont/); 2003-2014 M+ FONTS PROJECT; 2006-2014 Daisuke SUZUKI <daisuke@vinelinux.org>; 2006-2014 Project Vine <Vine@vinelinux.org>. License: M+Font and SazanamiFont and BSD-3-Clause"
+
+Font URW Chancery L is "copyright: 2015 URW Software 2013, 2014 (URW)++ Design & Development. License: AGPL-3 with Font exception"
+
+File(s):
+    * sheet.png
+
+----------------------------------------
+
+Title:
+    Cards Pack
+
+Author:
+    xvideosman
+
+URL:
+    https://opengameart.org/content/cards-pack
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+File(s):
+    * cards_pack.zip
+
+----------------------------------------
+
+Title:
+    Pixel Art Cards
+
+Author:
+    Lempf
+
+URL:
+    https://opengameart.org/content/pixel-art-cards
+
+License(s):
+    * CC-BY 3.0 ( http://creativecommons.org/licenses/by/3.0/legalcode )
+
+Copyright/Attribution Notice:
+    © Glenn Dittmann
+
+File(s):
+    * game-cards.zip
+
+----------------------------------------
+
+Title:
+    Fantasy Card - Dark Cosmic
+
+Author:
+    Cethiel
+
+URL:
+    https://opengameart.org/content/fantasy-card-dark-cosmic
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * fantasy_card_-_dark_cosmic.zip
+    * card_back_0_no_background.png
+    * card_back_1_no_background.png
+
+----------------------------------------
+
+Title:
+    Pixel Poker Cards
+
+Author:
+    IvoryRed
+
+URL:
+    https://opengameart.org/content/pixel-poker-cards
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+
+Copyright/Attribution Notice:
+    IvoryRed
+
+File(s):
+    * poker_cards_pack.zip
+
+----------------------------------------
+
+Title:
+    Playing cards sprites with light and shadow
+
+Author:
+    Konson
+
+URL:
+    https://opengameart.org/content/playing-cards-sprites-with-light-and-shadow
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+Copyright/Attribution Notice:
+    Public domain
+
+File(s):
+    * cards2.png
+
+----------------------------------------
+
+Title:
+    Pixel art dice faces
+
+Author:
+    Vircon32
+
+URL:
+    https://opengameart.org/content/pixel-art-dice-faces
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+
+Copyright/Attribution Notice:
+    "Pixel art dice faces", by Vircon32 (Carra).
+Published at OpenGameArt under license CC-BY 4.0.
+
+File(s):
+    * pixel_art_dice_faces_-_all_sides.png
+
+----------------------------------------
+
+Title:
+    Pixel art poker cards
+
+Author:
+    Vircon32
+
+URL:
+    https://opengameart.org/content/pixel-art-poker-cards
+
+License(s):
+    * CC-BY 4.0 ( https://creativecommons.org/licenses/by/4.0/legalcode )
+
+Copyright/Attribution Notice:
+    "Pixel art poker cards", by Vircon32 (Carra).
+Published at OpenGameArt under license CC-BY 4.0.
+
+File(s):
+    * pixel_art_poker_cards_-_card_fronts.png
+    * pixel_art_poker_cards_-_card_back_and_extras.png
+
+----------------------------------------
+
+Title:
+    Chord Card Collection
+
+Author:
+    Trinity Paradox
+
+URL:
+    https://opengameart.org/content/chord-card-collection
+
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * chord_collection.zip
+
+----------------------------------------
+
+
