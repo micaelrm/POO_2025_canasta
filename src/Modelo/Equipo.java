@@ -51,6 +51,8 @@ public class Equipo implements IEquipo, Serializable {
     @Override
     public Integer getPuntaje() { return puntaje; }
     
+    public Integer getPuntajeCombinacionMinima() { return puntajeCombinacionMinima; }
+    
     @Override
     public ArrayList<Combinacion> getCombinaciones() {
         return combinaciones;

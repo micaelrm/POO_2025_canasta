@@ -34,9 +34,6 @@ public class MainCliente {
 
 import ar.edu.unlu.rmimvc.cliente.Cliente;
 import Modelo.Interfaz.IControlador;
-import Modelo.Interfaz.IVista;
-import Vista.VistaConsola;
-import Vista.VistaGrafica;
 import Vista.*;
 import ar.edu.unlu.rmimvc.cliente.IControladorRemoto;
 import javax.swing.JFrame;

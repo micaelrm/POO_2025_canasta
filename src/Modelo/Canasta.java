@@ -26,8 +26,6 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         adminJugadores.agregarEquipo();
         estadoJuego = EstadoJuego.ESPERA;
     }
-
-
     
     @Override
     public void iniciarJuego() throws RemoteException {
@@ -162,8 +160,6 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return adminJugadores.getEstadoTurno();
     }
     
-
-
     @Override
     public void notificarObservadores() throws RemoteException {
         super.notificarObservadores(); 
@@ -221,7 +217,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         if ((carta.getTipo() == Tipo.COMODIN || carta.getTipo() == Tipo.TRES) && descarte.getEstadoDescarte() == EstadoDescarte.LIBRE) {
             descarte.setEstadoDescarte(EstadoDescarte.BLOQUEADA);
         }
-        if (descarte.getEstadoDescarte() == EstadoDescarte.BLOQUEADA) {
+        else if (descarte.getEstadoDescarte() == EstadoDescarte.BLOQUEADA) {
             descarte.setEstadoDescarte(EstadoDescarte.CONGELADA);
         }
     }
@@ -328,6 +324,9 @@ public class Canasta extends ObservableRemoto implements ICanasta {
             }
 
             nueva.actualizarPuntaje();
+            if (adminJugadores.getEquipo(j).getPuntajeCombinacionMinima() > nueva.getPuntaje()) return false;
+            else descarte.setEstadoDescarte(EstadoDescarte.LIBRE);
+            
             adminJugadores.getEquipo(j).agregarCombinacion(nueva);
             adminJugadores.getEquipo(j).actualizarPuntaje();
             return true;
@@ -399,6 +398,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         }
         return null;
     }
+    
     
     //---------------------------------------------------------------------------
     /*

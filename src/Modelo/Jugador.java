@@ -14,6 +14,7 @@ public class Jugador implements IJugador, Serializable{
     private Mano mano;
     private Equipo equipo;
     private EstadoJugador estado;
+    private boolean canasta;
 
     public Jugador(Equipo equipo) { 
         mano = new Mano(); 
@@ -21,6 +22,7 @@ public class Jugador implements IJugador, Serializable{
         this.id = idEstatico;
         idEstatico += 1;
         nombre = null;
+        canasta = false;
     }
     
     public void tomarCarta(Carta carta) { mano.agregarCarta(carta); }

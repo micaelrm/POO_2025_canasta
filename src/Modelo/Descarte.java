@@ -11,7 +11,7 @@ public class Descarte implements Serializable {
     
     public Descarte() { 
         this.pilaDescarte = new Stack<>(); 
-        estado = EstadoDescarte.LIBRE;
+        estado = EstadoDescarte.INICIO;
     }
     
     public void vaciarDescarte() { pilaDescarte.clear(); }

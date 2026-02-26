@@ -264,19 +264,22 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
     }//GEN-LAST:event_btnCombinarActionPerformed
 
     private void btnDescartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescartarActionPerformed
-        Pair<Valor, Palo> par = null;
-
-        for (JToggleButton btnCarta : listaCombinacion) {
-            if (btnCarta.isSelected()) {
-
-                Valor v = (Valor) btnCarta.getClientProperty("valor");
-                Palo p = (Palo) btnCarta.getClientProperty("palo");
-                par = new Pair<>(v, p);
-                System.out.println(par);
-            }
-        }
-        
         try {
+            int cantSelec = 0;
+            Pair<Valor, Palo> par = null;
+            
+            for (JToggleButton btnCarta : listaCombinacion) {
+                if (btnCarta.isSelected()) {
+                    cantSelec++;
+                    Valor v = (Valor) btnCarta.getClientProperty("valor");
+                    Palo p = (Palo) btnCarta.getClientProperty("palo");
+                    par = new Pair<>(v, p);
+                    System.out.println(par);
+                }
+                
+                if (cantSelec > 1) throw new RemoteException("ERROR: trato de descartar 2 cartas a la vez");
+            }
+        
             controlador.descartar(par);
         } catch (RemoteException ex) {
             System.getLogger(VistaGrafica.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
@@ -421,6 +424,10 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         EstadoDescarte estadoDescarte = controlador.getEstadoDescarte();
         
         switch (estadoDescarte) {
+            case INICIO:
+                btnCDescarte.setEnabled(false);
+                btnCDescarte.setIcon(icono);
+                break;
             case BLOQUEADA:
                 btnCDescarte.setIcon(rotarIcono(icono));
                 btnCDescarte.setEnabled(false);
