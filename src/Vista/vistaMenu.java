@@ -97,10 +97,10 @@ public class vistaMenu extends javax.swing.JFrame {
             String nombre = campoTxt.getText();
             if (!nombre.isBlank()) {
                 String seleccion = comboBoxVista.getSelectedItem().toString();
-                IVista vista;
+                IVista vista = null;
 
                 if (seleccion.equals("CONSOLA")) vista = new VistaConsola(controlador);  
-                else vista = new VistaGrafica(controlador);
+                else if (seleccion.equals("GRAFICO")) vista = new VistaGrafica(controlador);
 
                 if (vista instanceof javax.swing.JFrame) {
                     final javax.swing.JFrame frame = (javax.swing.JFrame) vista;

@@ -14,17 +14,21 @@ public interface IControlador {
     IJugador getJugador() throws RemoteException;
     IJugador getJugadorEnTurno() throws RemoteException;
     void setNombre(String nombre) throws RemoteException;
+    boolean validarJugadorEnTurno() throws RemoteException;
     EstadoTurno getEstadoTurno() throws RemoteException;
     IEquipo getGanador() throws RemoteException;
     IEquipo getEquipoRival(IJugador j) throws RemoteException;
+    IEquipo getEquipo(IJugador j) throws RemoteException;
     IJugador getAmigo(IJugador j) throws RemoteException;
     void conectar(String nombre) throws RemoteException;
     void descartar(Pair <Valor, Palo> par) throws RemoteException;
     void tomar(String entrada) throws RemoteException;
     void combinacion(ArrayList<Pair <Valor, Palo>> pares) throws RemoteException;
     void solicitarRetiro() throws RemoteException;
+    void responderRetiro(boolean respuesta) throws RemoteException;
     EstadoDescarte getEstadoDescarte() throws RemoteException;
-
+    EstadoJuego getEstadoJuego() throws RemoteException;
+    void terminarJuego() throws RemoteException;
     void setVista(IVista vista);
     void subscribir() throws RemoteException;
 

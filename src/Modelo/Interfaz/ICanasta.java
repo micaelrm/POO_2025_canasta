@@ -11,17 +11,17 @@ import javafx.util.Pair;
 
 
 public interface ICanasta extends IObservableRemoto {
-    
     IJugador conectarJugador() throws RemoteException;
     void validarCantidadJugadores() throws RemoteException;
-    
+    void verificarJugadoresRetirados() throws RemoteException;
+    boolean validarJugadorEnTurno(IJugador j) throws RemoteException;
     void iniciarJuego() throws RemoteException;
     void repartirCartas() throws RemoteException;
     void descartar(Pair <Valor, Palo> par) throws RemoteException;
     void formarCombinacion(ArrayList<Pair <Valor, Palo>> pares) throws RemoteException;
     void tomarMazo() throws RemoteException;
     void tomarDescarte() throws RemoteException;
-    
+    void terminarJuego() throws RemoteException;
     void siguienteTurno() throws RemoteException;
     IJugador getJugadorEnTurno() throws RemoteException;
     Mano getMano() throws RemoteException;
@@ -34,8 +34,10 @@ public interface ICanasta extends IObservableRemoto {
     EstadoJuego getEstadoJuego() throws RemoteException;
     IEquipo getGanador() throws RemoteException;
     IEquipo getEquipoRival(IJugador j) throws RemoteException;
+    IEquipo getEquipo(IJugador j) throws RemoteException;
     IJugador getAmigo(IJugador j) throws RemoteException;
     void setNombre(String nombre, IJugador jugador) throws RemoteException;
     void solicitarRetiro(IJugador jugador) throws RemoteException;
+    void responderRetiro(boolean respuesta, IJugador jugador) throws RemoteException;
     EstadoDescarte getEstadoDescarte() throws RemoteException;
 }

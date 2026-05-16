@@ -14,7 +14,6 @@ public class Jugador implements IJugador, Serializable{
     private Mano mano;
     private Equipo equipo;
     private EstadoJugador estado;
-    private boolean canasta;
 
     public Jugador(Equipo equipo) { 
         mano = new Mano(); 
@@ -22,7 +21,6 @@ public class Jugador implements IJugador, Serializable{
         this.id = idEstatico;
         idEstatico += 1;
         nombre = null;
-        canasta = false;
     }
     
     public void tomarCarta(Carta carta) { mano.agregarCarta(carta); }
@@ -39,12 +37,18 @@ public class Jugador implements IJugador, Serializable{
         setEstado(EstadoJugador.SOLICITUD);
     }
     
-    public boolean responderRetiro() {
-        return false;
-    }
-    
     @Override
     public Mano getMano() { return mano;}
+    
+    public int getPuntajeMano() { 
+        int puntajeMano = 0;
+        ArrayList<Carta> cartas = mano.getCartas();
+        for (Carta carta : cartas) {
+            puntajeMano += carta.getPuntaje();
+        }
+        
+        return puntajeMano;
+    }
     
     @Override
     public Equipo getEquipo() { return equipo; }

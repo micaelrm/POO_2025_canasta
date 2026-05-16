@@ -11,35 +11,53 @@ import javafx.util.*;
 public class Equipo implements IEquipo, Serializable {
     private ArrayList<Jugador> jugadores;
     private Integer puntaje;
+    private Integer puntajeAnterior;
     private ArrayList<Combinacion> combinaciones;
     private int id;
     private static int idEquipos = 1;
     private boolean primerCombinacion;
-    private int puntajeCombinacionMinima;
+    private Integer puntajeCombinacionMinima;
+    private Integer canastaNatural;
+    private Integer canastaMixta;
     
     public Equipo () {
         this.puntaje = 0;
+        this.puntajeAnterior = 0;
         this.combinaciones = new ArrayList<>();
         this.jugadores = new ArrayList<>();
         this.id = idEquipos;
         idEquipos++;
         this.primerCombinacion = false;
-        this.puntajeCombinacionMinima = 0;
+        this.puntajeCombinacionMinima = 15;
+        this.canastaNatural = 0;
+        this.canastaMixta = 0;
     }
     
     public void agregarJugador(Jugador j) { jugadores.add(j); }
     
     public void actualizarPuntaje() {
-        this.puntaje = 0;
+        this.puntaje = puntajeAnterior;
         for (Combinacion combinacion : combinaciones) {
             this.puntaje += combinacion.getPuntaje();
+            if (combinacion.siCanastaMixta()) canastaMixta++;
+            if (combinacion.siCanastaNatural()) canastaNatural++;
         }
+    }
+    
+    public void calcularPuntajeFinal() {
+        int penalizacion = jugadores.getFirst().getPuntajeMano() + jugadores.getLast().getPuntajeMano();
+        int puntajeCanastaNatural = canastaNatural * 500;
+        int puntajeCanastaMixta = canastaMixta * 300;
+        int puntajeRetirada = 0;
+        if (verificarJugadoresRetirados()) puntajeRetirada = 100;
+        
+        this.puntaje = puntaje + puntajeCanastaNatural + puntajeCanastaMixta + puntajeRetirada - penalizacion;
     }
    
     public void setPuntajeCombinacionMinima() {
-        if (puntaje < 0) { puntajeCombinacionMinima = 15; }
-        else if (puntaje < 1500) { puntajeCombinacionMinima = 50; }
-        else if (puntaje < 3000) { puntajeCombinacionMinima = 90; }
+        if (puntajeAnterior <= 0) { puntajeCombinacionMinima = 15; }
+        else if (puntajeAnterior <= 1500) { puntajeCombinacionMinima = 50; }
+        else if (puntajeAnterior <= 3000) { puntajeCombinacionMinima = 90; }
         else { puntajeCombinacionMinima = 120; }
     }
     
@@ -51,6 +69,9 @@ public class Equipo implements IEquipo, Serializable {
     @Override
     public Integer getPuntaje() { return puntaje; }
     
+    public Integer getPuntajeAnterior() { return puntajeAnterior; }
+    
+    @Override
     public Integer getPuntajeCombinacionMinima() { return puntajeCombinacionMinima; }
     
     @Override
@@ -73,8 +94,32 @@ public class Equipo implements IEquipo, Serializable {
         return null;
     }
     
+    @Override
+    public int getId() { return id; }
+    
+    public boolean siPrimerCombinacion() { return primerCombinacion; }
+    
+    
+    public void retirarEquipo() {
+        for (Jugador jugador : jugadores) { jugador.setEstado(EstadoJugador.RETIRADO); }
+    }
+    
     public void solicitarRetiro(IJugador jugador) {
         getJugador(jugador).solicitarRetiro();
+    }
+    
+    public void responderRetiro(boolean respuesta, IJugador jugador) {
+        if(respuesta) { retirarEquipo(); }
+        else getAmigo(jugador).setEstado(EstadoJugador.ACTIVO);
+    }
+    
+    public boolean verificarJugadoresRetirados() {
+        int retirados = 0;
+        for (Jugador jugador : jugadores) {
+            if (jugador.getEstado() == EstadoJugador.RETIRADO) { retirados++; }
+        }
+        if (retirados == 2) return true;
+        else return false;
     }
     
     public void setNombre(String nombre, IJugador jugador) {
@@ -83,6 +128,15 @@ public class Equipo implements IEquipo, Serializable {
     
     public void setPuntaje(int puntaje) { this.puntaje = puntaje; }
     
+    public void setPuntajeAnterior(int puntajeAnterior) { this.puntajeAnterior = puntajeAnterior; }
+    
+    public void setPrimerCombinacion(boolean primerCombinacion) { this.primerCombinacion = primerCombinacion; }
+        
     @Override
-    public int getId() { return id; }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Equipo equipo = (Equipo) o;
+        return Objects.equals(id, equipo.id);
+    }
 }

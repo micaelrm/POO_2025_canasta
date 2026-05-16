@@ -31,6 +31,11 @@ public class Controlador implements IControladorRemoto, IControlador {
     }
     
     @Override
+    public void terminarJuego() throws RemoteException {
+        modelo.terminarJuego();
+    }
+    
+    @Override
     public void descartar(Pair <Valor, Palo> par) throws RemoteException {
         modelo.descartar(par);
     }
@@ -48,6 +53,7 @@ public class Controlador implements IControladorRemoto, IControlador {
 
     @Override
     public void actualizar(IObservableRemoto ior, Object o) throws RemoteException {
+        modelo.verificarJugadoresRetirados();
         if (modelo.getEstadoJuego() == EstadoJuego.CORRIENDO) vista.mostrarJuego();
         if (modelo.getEstadoJuego() == EstadoJuego.FIN) vista.mostrarFin();
         if (modelo.getAmigo(jugador).getEstado() == EstadoJugador.SOLICITUD) vista.responderSolicitudRetiro();
@@ -66,6 +72,11 @@ public class Controlador implements IControladorRemoto, IControlador {
     @Override
     public void setNombre(String nombre) throws RemoteException {
         modelo.setNombre(nombre, jugador);
+    }
+    
+    @Override
+    public boolean validarJugadorEnTurno() throws RemoteException {
+        return modelo.validarJugadorEnTurno(jugador);
     }
         
     @Override
@@ -99,8 +110,14 @@ public class Controlador implements IControladorRemoto, IControlador {
         return modelo.getEstadoTurno();
     }
     
+    @Override
     public EstadoDescarte getEstadoDescarte() throws RemoteException {
         return modelo.getEstadoDescarte();
+    }
+    
+    @Override
+    public EstadoJuego getEstadoJuego() throws RemoteException {
+        return modelo.getEstadoJuego();
     }
     
     @Override
@@ -114,6 +131,11 @@ public class Controlador implements IControladorRemoto, IControlador {
     }
     
     @Override
+    public IEquipo getEquipo(IJugador j) throws RemoteException {
+        return modelo.getEquipo(jugador);
+    }
+    
+    @Override
     public IJugador getAmigo(IJugador j) throws RemoteException {
         return modelo.getAmigo(j);
     }
@@ -121,6 +143,11 @@ public class Controlador implements IControladorRemoto, IControlador {
     @Override
     public void solicitarRetiro() throws RemoteException {
         modelo.solicitarRetiro(jugador);
+    }
+    
+    @Override
+    public void responderRetiro(boolean respuesta) throws RemoteException {
+        modelo.responderRetiro(respuesta, jugador);
     }
     
     @Override

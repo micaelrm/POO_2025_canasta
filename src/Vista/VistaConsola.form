@@ -17,8 +17,6 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="gui.Interfaz" name="interfaz1">
-    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>

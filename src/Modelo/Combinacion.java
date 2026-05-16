@@ -9,13 +9,13 @@ import java.util.*;
 public class Combinacion implements ICombinacion, Serializable {
     private ArrayList<Carta> listaCombinacion;
     private Integer puntaje;
-    private boolean canasta;
-    private boolean pura;
+    private boolean canastaMixta;
+    private boolean canastaNatural;
     
     public Combinacion() { 
         this.listaCombinacion = new ArrayList<Carta>(); 
-        this.canasta = false;
-        this.pura = false;
+        this.canastaMixta = false;
+        this.canastaNatural = false;
         actualizarPuntaje();
     }
        
@@ -29,7 +29,6 @@ public class Combinacion implements ICombinacion, Serializable {
         }
     }
     
-
     public void combinarCarta(Carta carta) { 
         listaCombinacion.add(carta); 
         actualizarPuntaje();
@@ -76,8 +75,12 @@ public class Combinacion implements ICombinacion, Serializable {
         return cartaBuscada;
     }    
     
-    public void setCanasta(boolean canasta) { this.canasta = canasta; }
+    public void setCanastaNatural(boolean canastaNatural) { this.canastaNatural = canastaNatural; }
 
-    public void setPura(boolean pura) { this.pura = pura; }
+    public void setCanastaMixta(boolean canastaMixta) { this.canastaMixta = canastaMixta; }
+    
+    public boolean siCanastaNatural() { return canastaNatural; }
+    
+    public boolean siCanastaMixta() { return canastaMixta; }
     
 }

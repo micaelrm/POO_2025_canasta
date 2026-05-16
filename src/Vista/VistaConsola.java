@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 public class VistaConsola extends javax.swing.JFrame implements IVista{
     private ValidadorEntrada validador;
     private IControlador controlador;
+    private boolean esperandoRespuestaRetiro = false;
 
     public VistaConsola(IControlador controlador) {
         initComponents();
@@ -21,6 +22,9 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
         this.validador = new ValidadorEntrada();
         this.controlador = controlador;
         areaSalida.setEnabled(false);
+        areaSalida.setForeground(java.awt.Color.GREEN);
+        areaSalida.setBackground(java.awt.Color.BLACK); 
+        areaSalida.setCaretColor(java.awt.Color.WHITE);
     }
     
    
@@ -29,7 +33,6 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        interfaz1 = new gui.Interfaz();
         campoEntrada = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaSalida = new javax.swing.JTextArea();
@@ -73,47 +76,87 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
         turnoJugador();
     }
     
+    @Override
+    public void responderSolicitudRetiro() {
+        concatenar("=======================================");
+        concatenar("¡ATENCIÓN! Tu compañero ha solicitado retirarse de la partida.");
+        concatenar("¿Aceptas la retirada? Escribe SI o NO:");
+        concatenar("=======================================");
+
+        campoEntrada.setEnabled(true);   
+    }
+    
     
     private void campoEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoEntradaKeyPressed
-          
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String entrada = campoEntrada.getText();
-            
+            String entrada = campoEntrada.getText().trim().toUpperCase(); 
+            campoEntrada.setText("");
+
             try {
-                EstadoTurno estadoTurno;
-                estadoTurno = controlador.getEstadoTurno();
-            switch(estadoTurno) {
-                case EstadoTurno.TOMAR_CARTA:
-                    try {
-                        validador.validarTomar(entrada); 
+                EstadoJugador estadoJugador = controlador.getJugadorEnTurno().getEstado();
+                if (estadoJugador == EstadoJugador.SOLICITUD) {
+                    if (entrada.equals("SI")) {
+                        controlador.responderRetiro(true);
+                        concatenar("Has aceptado la retirada.");
+                    } else if (entrada.equals("NO")) {
+                        controlador.responderRetiro(false);
+                        esperandoRespuestaRetiro = false;
+                        concatenar("Has rechazado la retirada. El juego continúa.");
+                    } else {
+                        concatenar("Entrada inválida. Por favor, escribe SI o NO.");
+                    }
+                    return; 
+                }
+
+                if (!evaluarEntrada()) {
+                    concatenar("No puedes ejecutar operaciones, no es tu turno.");
+                    return;
+                }
+
+                if (entrada.equals("RETIRARSE")) {
+                    controlador.solicitarRetiro();
+                    concatenar("Has solicitado retirarte. Esperando respuesta de tu compañero...");
+                    campoEntrada.setEnabled(false); 
+                    return;
+                }
+
+                EstadoTurno estadoTurno = controlador.getEstadoTurno();
+                switch(estadoTurno) {
+                    case TOMAR_CARTA:
                         try {
+                            validador.validarTomar(entrada); 
                             controlador.tomar(entrada);
-                        } catch (RemoteException ex) {
-                        System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                        } catch (IllegalArgumentException eTomar){ 
+                            concatenar(" - TOMAR: " + eTomar.getMessage()); 
+                        } 
+                        break;
+
+                    case COMBINAR_DESCARTAR_CARTA:
+                        if (entrada.startsWith("COMBINAR")) {
+                            try {
+                                ArrayList<Pair <Valor, Palo>> pares = validador.validarCombinar(entrada);
+                                controlador.combinacion(pares);
+                            } catch (IllegalArgumentException eCombinar) { 
+                                concatenar(" - COMBINAR: " + eCombinar.getMessage());  
+                            }
+                        } else if (entrada.startsWith("DESCARTAR")) {
+                            try {
+                                Pair <Valor, Palo> par = validador.validarDescartar(entrada);
+                                controlador.descartar(par);
+                            } catch (IllegalArgumentException eDescartar) { 
+                                concatenar(" - DESCARTAR: " + eDescartar.getMessage()); 
+                            }
+                        } else {
+                            concatenar("Comando no reconocido para esta fase del turno.");
                         }
-                    } catch (IllegalArgumentException eTomar){ concatenar(" - TOMAR: " + eTomar.getMessage()); } 
-                case EstadoTurno.COMBINAR_DESCARTAR_CARTA:
-                    try {
-                        ArrayList<Pair <Valor, Palo>> pares = validador.validarCombinar(entrada);
-                        try {
-                            controlador.combinacion(pares);
-                        } catch (RemoteException ex) {
-                        System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-                        }
-                    } catch (IllegalArgumentException eCombinar) { concatenar(" - COMBINAR: " + eCombinar.getMessage());  }
-                    try {
-                        Pair <Valor, Palo> par = validador.validarDescartar(entrada);
-                        try {
-                            controlador.descartar(par);
-                        } catch (RemoteException ex) {
-                        System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-                        }   
-                    } catch (IllegalArgumentException eDescartar) { concatenar(" - DESCARTAR: " + eDescartar.getMessage()); }
-            }
-            } catch (RemoteException ex) {
+                        break;
+                }
+            } catch (Exception ex) {
                 System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                mostrarMensajeError(ex.getMessage());
             }
-        }   
+        }
     }//GEN-LAST:event_campoEntradaKeyPressed
 
     
@@ -131,9 +174,13 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
                 }
                 numEquipo++;
                 concatenar("puntaje total: " + equipo.getPuntaje());
+                if (equipo.getCombinaciones().isEmpty()) {
+                    concatenar("Puntaje necesario para abrir: " + equipo.getPuntajeCombinacionMinima());
+                }
             }
-        } catch (RemoteException ex) {
+        } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            mostrarMensajeError(ex.getMessage());
         }
     }
     
@@ -144,18 +191,21 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
             List<? extends ICarta> cartas = mano.getCartas();
             concatenar("Mano del jugador: ");
             for (ICarta carta : cartas) concatenar("   " + carta.getValor() + "   " + carta.getPalo() + "   " + carta.getColor());
-        } catch (RemoteException ex) {
+        } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            mostrarMensajeError(ex.getMessage());
         }
     }
     
     public void mostrarCantidadMazo() {
         try {
-            Integer cantidadMazo;
-            cantidadMazo = controlador.getCantidadMazo();
+            Integer cantidadMazo = controlador.getCantidadMazo();
+            EstadoDescarte estado = controlador.getEstadoDescarte();
             concatenar("Cantidad cartas mazo: " + cantidadMazo);
-        } catch (RemoteException ex) {
+            concatenar("Estado del pozo: [" + estado + "]");
+        } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            mostrarMensajeError(ex.getMessage());
         }
         
     }
@@ -165,8 +215,9 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
             ICarta topeDescarte;
             topeDescarte = controlador.getTopeDescarte();
             concatenar("tope pila descarte:    " + topeDescarte.getValor() + "   " + topeDescarte.getPalo() + "   " + topeDescarte.getColor());
-        } catch (RemoteException ex) {
+        } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            mostrarMensajeError(ex.getMessage());
         }
     }
     
@@ -176,8 +227,9 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
             equipo = controlador.getJugador().getEquipo();
             concatenar("equipo " + equipo.getId());
             concatenar("jugador " + controlador.getJugador().getId());
-        } catch (RemoteException ex) {
+        } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            mostrarMensajeError(ex.getMessage());
         } 
         if (!evaluarEntrada()) { 
             concatenar("No puede ejecutar operaciones, no es su turno");
@@ -190,8 +242,9 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
                 EstadoTurno estadoTurno = controlador.getEstadoTurno();
                 switch (estadoTurno) {
                     case(EstadoTurno.TOMAR_CARTA):
-                        concatenar("Debe tomar una carta");
-                        concatenar("comando: MAZO / DESCARTE ");
+                        concatenar("Debe tomar una carta o retirarse");
+                        concatenar("comando tomar: MAZO / DESCARTE ");
+                        concatenar("comando retirarse: RETIRARSE");
                         break;
                     case(EstadoTurno.COMBINAR_DESCARTAR_CARTA):
                         concatenar("Ahora puede descartar una carta o realizar combinaciones");
@@ -199,8 +252,9 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
                         concatenar("comando combinar: COMBINAR [VALOR] [PALO] ... [VALOR] [PALO]]");
                         break;
                 }
-            } catch (RemoteException ex) {
+            } catch (Exception ex) {
                 System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                mostrarMensajeError(ex.getMessage());
             }
         }
     }
@@ -216,15 +270,14 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
     }
     
     public boolean evaluarEntrada() {
-        boolean turno = false;
         try {
-            IJugador jugador = controlador.getJugador();
-            IJugador jugadorEnTurno = controlador.getJugadorEnTurno();
-            if (jugador.equals(jugadorEnTurno)) turno = true;
-        } catch (RemoteException ex) {
+            boolean turno = controlador.validarJugadorEnTurno();;
+            return turno;
+        } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            mostrarMensajeError(ex.getMessage());
         }
-        return turno;
+        return false;
     }
     
     @Override
@@ -232,23 +285,21 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
         IEquipo equipo;
         try {
             equipo = controlador.getGanador();
-            concatenar("Se han acabado las cartas del mazo");
             concatenar("el equipo " + equipo.getId() + " es el ganador");
-        } catch (RemoteException ex) {
+            controlador.terminarJuego();
+        } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            mostrarMensajeError(ex.getMessage());
         }
-
     }
-   
-    @Override
-    public void responderSolicitudRetiro() {
-        
+    
+    public void mostrarMensajeError(String error) {
+        concatenar(error);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea areaSalida;
     private javax.swing.JTextField campoEntrada;
-    private gui.Interfaz interfaz1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

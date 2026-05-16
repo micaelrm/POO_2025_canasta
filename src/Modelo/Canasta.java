@@ -1,5 +1,5 @@
-
 package Modelo;
+
 import Modelo.Interfaz.*;
 import Modelo.Enum.*;
 import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
@@ -15,7 +15,6 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     private Mazo mazo;
     private Descarte descarte;
     private EstadoJuego estadoJuego;
-    private Persistencia persistencia;
     
     public Canasta() throws RemoteException {
         super();
@@ -29,11 +28,39 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     
     @Override
     public void iniciarJuego() throws RemoteException {
-        //adminJugadores.intercalarTurnos();
-        repartirCartas();
-        descarte.agregarCartaDescarte(mazo);
-        estadoJuego = EstadoJuego.CORRIENDO;
+        try {
+            //adminJugadores.intercalarTurnos();
+            adminJugadores.lecturaEquipos();
+            repartirCartas();
+            descarte.agregarCartaDescarte(mazo);
+            estadoJuego = EstadoJuego.CORRIENDO;
+            notificarObservadores();
+        } catch (IOException ex) {
+            System.getLogger(Canasta.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(Canasta.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+
+    }
+    
+    public void revisarCondiciones() throws RemoteException {
+        boolean mazoVacio = mazo.siCero();
+        boolean puntaje = adminJugadores.verificarPuntaje();
+        if (mazoVacio || puntaje) estadoJuego = EstadoJuego.FIN;
         notificarObservadores();
+    }
+    
+    @Override
+    public void terminarJuego() throws RemoteException {
+        ArrayList<RegistroPuntajes> registros = crearRegistros();
+        try {
+            if (adminJugadores.leer() == null) { adminJugadores.guardar(registros); }
+            else adminJugadores.actualizar(registros);
+        } catch (IOException ex) {
+            System.getLogger(Canasta.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(Canasta.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
     
     @Override
@@ -45,18 +72,28 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     public void validarCantidadJugadores() throws RemoteException {
         if (adminJugadores.getCantidadJugadores() == 4) iniciarJuego();
     }
+    
+    @Override
+    public void verificarJugadoresRetirados() throws RemoteException {
+        boolean retirados = adminJugadores.verificarJugadoresRetirados();
+        if (retirados) estadoJuego = EstadoJuego.FIN;
+    }
+    
+    @Override
+    public boolean validarJugadorEnTurno(IJugador j) throws RemoteException {
+        return adminJugadores.getJugadorEnTurno().equals(j);
+    }
 
-  
     @Override
     public void formarCombinacion(ArrayList<Pair <Valor, Palo>> pares) throws RemoteException {
         formarCombinacionAux(pares);
-        notificarObservadores();
+        revisarCondiciones();
     }
     
     @Override
     public void siguienteTurno() throws RemoteException {
         adminJugadores.avanzarTurno();
-        notificarObservadores();
+        revisarCondiciones();
     }
     
     @Override
@@ -68,7 +105,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     @Override
     public void tomarDescarte() throws RemoteException {
         tomarCartaDescarte();
-        notificarObservadores();
+        revisarCondiciones();
     }
     
     @Override
@@ -76,7 +113,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         tomarCartaPila();
         adminJugadores.setEstadoTurno(EstadoTurno.COMBINAR_DESCARTAR_CARTA);
         if (mazo.siCero()) estadoJuego = EstadoJuego.FIN;
-        notificarObservadores();
+        revisarCondiciones();
     }
     
     @Override
@@ -98,7 +135,6 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     public List<? extends IJugador> getJugadores() throws RemoteException {
         return adminJugadores.getJugadores();
     }
-    
     
     @Override
     public Integer getCantidadMazo() throws RemoteException {
@@ -135,6 +171,11 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     }
     
     @Override
+    public IEquipo getEquipo(IJugador j) throws RemoteException {
+        return adminJugadores.getEquipo(j);
+    }
+    
+    @Override
     public IJugador getAmigo(IJugador j) throws RemoteException {
         return adminJugadores.getEquipo(j).getAmigo(j);
     }
@@ -142,7 +183,13 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     @Override
     public void solicitarRetiro(IJugador jugador) throws RemoteException {
         adminJugadores.solicitarRetiro(jugador);
-        notificarObservadores();
+        revisarCondiciones();
+    }
+    
+    @Override
+    public void responderRetiro(boolean respuesta, IJugador jugador) throws RemoteException {
+        adminJugadores.responderRetiro(respuesta, jugador);
+        revisarCondiciones();
     }
     
     @Override
@@ -151,7 +198,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     }
     
     @Override
-    public void setNombre(String nombre, IJugador jugador) {
+    public void setNombre(String nombre, IJugador jugador) throws RemoteException {
         adminJugadores.setNombre(nombre , jugador);
     }
     
@@ -181,11 +228,10 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     }
     
     
-    
     //--------------------------------------------------------------------------
     
     @Override
-    public void repartirCartas(){
+    public void repartirCartas() throws RemoteException {
         Carta carta = null;
         for (Equipo equipo : adminJugadores.getEquipos()) {
             for (Jugador jugador : equipo.getJugadores()) {
@@ -201,7 +247,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         }
     }
     
-    public void tomarCartaPila() {
+    public void tomarCartaPila() throws RemoteException {
         Carta carta = mazo.cederCarta();
         adminJugadores.getJugadorEnTurno().tomarCarta(carta);
     }
@@ -222,7 +268,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         }
     }
     
-    public void tomarCartaDescarte() throws IllegalStateException {
+    public void tomarCartaDescarte() throws RemoteException {
         Jugador jugadorEnTurno = adminJugadores.getJugadorEnTurno();
         Equipo equipoTurno = jugadorEnTurno.getEquipo();
         Carta carta = descarte.getTopeDescarte();
@@ -240,7 +286,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         descarte.vaciarDescarte();
     }
     
-    public ArrayList<Carta> convertirCombinacion(ArrayList<Pair <Valor, Palo>> lista, Jugador j) throws IllegalStateException {
+    public ArrayList<Carta> convertirCombinacion(ArrayList<Pair <Valor, Palo>> lista, Jugador j) throws RemoteException {
         ArrayList<Carta> combinacion = new ArrayList<>();
         Mano mano = j.getMano();
         for (Pair<Valor, Palo> par : lista) {
@@ -255,7 +301,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return combinacion;
     }
     
-    public Carta convertirCombinacion(Pair<Valor, Palo> par, Jugador j) throws IllegalStateException {
+    public Carta convertirCombinacion(Pair<Valor, Palo> par, Jugador j) throws RemoteException {
         Valor valorBuscado = par.getKey();
         Palo paloBuscado = par.getValue();
 
@@ -270,7 +316,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return null;
     }
     
-    public boolean validarCombinacion(ArrayList<Pair<Valor, Palo>> lista, Jugador j) {
+    public boolean validarCombinacion(ArrayList<Pair<Valor, Palo>> lista, Jugador j) throws RemoteException {
         ArrayList<Carta> cartas = convertirCombinacion(lista, j);
         if (cartas == null) { return false; }
 
@@ -315,17 +361,16 @@ public class Canasta extends ObservableRemoto implements ICanasta {
             for (Carta carta : cartas) nueva.combinarCarta(carta); 
 
             if (nueva.getListaCombinacion().size() == 7) {
-                nueva.setCanasta(true);
-                if (nueva.contarComodines() == 0) nueva.setPura(true);
-                else nueva.setPura(false);
-            } else {
-                nueva.setCanasta(false);
-                nueva.setPura(nueva.contarComodines() == 0);
+                if (nueva.contarComodines() == 0) nueva.setCanastaNatural(true);
+                else nueva.setCanastaMixta(false);
             }
 
             nueva.actualizarPuntaje();
-            if (adminJugadores.getEquipo(j).getPuntajeCombinacionMinima() > nueva.getPuntaje()) return false;
-            else descarte.setEstadoDescarte(EstadoDescarte.LIBRE);
+            if (adminJugadores.getEquipo(j).getPuntajeCombinacionMinima() > nueva.getPuntaje() && !adminJugadores.getEquipo(j).siPrimerCombinacion()) return false;
+            else { 
+                adminJugadores.getEquipo(j).setPrimerCombinacion(true);
+                descarte.setEstadoDescarte(EstadoDescarte.LIBRE);
+            }
             
             adminJugadores.getEquipo(j).agregarCombinacion(nueva);
             adminJugadores.getEquipo(j).actualizarPuntaje();
@@ -333,7 +378,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         }
     }
     
-    public boolean validarCombinacionTres(Carta carta, Jugador j) {
+    public boolean validarCombinacionTres(Carta carta, Jugador j) throws RemoteException {
 
         if (carta == null) { return false; }
 
@@ -354,14 +399,14 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         }
     }
     
-    public void formarCombinacionAux(ArrayList<Pair <Valor, Palo>> pares) throws IllegalStateException {
+    public void formarCombinacionAux(ArrayList<Pair <Valor, Palo>> pares) throws RemoteException {
         Jugador jugadorEnTurno = adminJugadores.getJugadorEnTurno();
         if (!(validarCombinacion(pares, jugadorEnTurno))) {
             throw new IllegalStateException();
         }
     }
     
-    public boolean buscarCombinacionEnMano(Carta cartaBuscada, Jugador j) {
+    public boolean buscarCombinacionEnMano(Carta cartaBuscada, Jugador j) throws RemoteException {
         boolean valido = true;
         Mano mano = j.getMano();
         ArrayList<Carta> cartas = mano.getCartas();
@@ -375,7 +420,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return valido;
     }
     
-    public boolean buscarCombinacionEnManoNatural(Carta cartaBuscada, Jugador j) {
+    public boolean buscarCombinacionEnManoNatural(Carta cartaBuscada, Jugador j) throws RemoteException {
         boolean valido = true;
         Mano mano = j.getMano();
         ArrayList<Carta> cartas = mano.getCartas();
@@ -388,7 +433,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return valido;
     }
     
-    public Combinacion buscarCombinacionPorValor(Valor valor) {
+    public Combinacion buscarCombinacionPorValor(Valor valor) throws RemoteException {
         ArrayList<Combinacion> combinaciones = adminJugadores.getEquipo(adminJugadores.getJugadorEnTurno()).getCombinaciones();
         for (Combinacion combinacion : combinaciones) {
             Carta base = combinacion.getCartaNaturalTres(); 
@@ -399,31 +444,44 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return null;
     }
     
-    
     //---------------------------------------------------------------------------
-    /*
-    public ArrayList<RegistroPuntajes> leer() throws IOException {
-        return persistencia.leer();
-    }
-    /*
-    public guardar() {
-        persistencia.guardar();
-    }
-    */
-    public void LecturaEquipos() throws IOException, ClassNotFoundException {
+
+    
+    public void lecturaEquipos() throws IOException, ClassNotFoundException, RemoteException {
         ArrayList<Equipo> equipos = adminJugadores.getEquipos();
-        ArrayList<RegistroPuntajes> registrosGuardados = persistencia.leer();
-        for (Equipo equipo : equipos) {
-            String EquipoNJ1 = equipo.getJugadores().getFirst().getNombre();
-            String EquipoNJ2 = equipo.getJugadores().getLast().getNombre();
-            for (RegistroPuntajes registro : registrosGuardados) {                
-                String RegistroNJ1 = registro.getNombreJugador1();
-                String RegistroNJ2 = registro.getNombreJugador2();
-                if ((RegistroNJ1 == EquipoNJ1 && RegistroNJ2 == EquipoNJ2) || (RegistroNJ1 == EquipoNJ2 && RegistroNJ2 == EquipoNJ1)) {
-                    equipo.setPuntaje(registro.getPuntaje());
-                    equipo.setPuntajeCombinacionMinima();
-                }
-            }   
+        ArrayList<RegistroPuntajes> registrosGuardados = adminJugadores.leer();
+        
+        if (registrosGuardados != null) {
+            for (Equipo equipo : equipos) {
+                String equipoNJ1 = equipo.getJugadores().getFirst().getNombre().trim();
+                String equipoNJ2 = equipo.getJugadores().getLast().getNombre().trim();
+                
+                for (RegistroPuntajes registro : registrosGuardados) {                
+                    String registroNJ1 = registro.getNombreJugador1().trim();
+                    String registroNJ2 = registro.getNombreJugador2().trim();
+                    
+                    if ((registroNJ1.equalsIgnoreCase(equipoNJ1) && registroNJ2.equalsIgnoreCase(equipoNJ2)) || 
+                        (registroNJ1.equalsIgnoreCase(equipoNJ2) && registroNJ2.equalsIgnoreCase(equipoNJ1))) {
+                        
+                        equipo.setPuntajeAnterior(registro.getPuntajeAnterior());
+                        equipo.setPuntajeCombinacionMinima();
+                    }
+                }   
+            }
         }
     }
+    
+    public ArrayList<RegistroPuntajes> crearRegistros() throws RemoteException {
+        ArrayList<RegistroPuntajes> registros = new ArrayList<>();
+        for (Equipo equipo : adminJugadores.getEquipos()) {
+            String nombreJ1 = equipo.getJugadores().getFirst().getNombre();
+            String nombreJ2 = equipo.getJugadores().getLast().getNombre();
+            int puntajeAnterior = equipo.getPuntaje();
+            RegistroPuntajes registro = new RegistroPuntajes(nombreJ1, nombreJ2, puntajeAnterior);
+            registros.add(registro);
+        }
+        
+        return registros;
+    }
+    
 }

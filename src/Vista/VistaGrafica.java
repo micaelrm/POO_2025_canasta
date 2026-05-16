@@ -7,7 +7,9 @@ import Modelo.Interfaz.IControlador;
 import Modelo.Interfaz.IEquipo;
 import Modelo.Interfaz.IJugador;
 import Modelo.Interfaz.IVista;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
 
 public class VistaGrafica extends javax.swing.JFrame implements IVista{
     
@@ -30,13 +33,20 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         this.controlador = controlador;
         listaCombinacion = new ArrayList();
         
-        this.setLocationRelativeTo(null);
-        this.setTitle("Canasta - Vista Gráfica");
         PanelFondo panelFondo = new PanelFondo("/png/fondo.jpg");
         panelFondo.setLayout(new java.awt.BorderLayout());
         this.setContentPane(panelFondo);
         
         initComponents();
+        txtInfo.setForeground(java.awt.Color.BLACK);
+        txtInfo.setEnabled(false);
+        lblPuntaje1.setEnabled(false);
+        lblPuntajeMin.setEnabled(false);
+        
+        this.setSize(800, 486);
+        this.setResizable(false);
+        this.setTitle("Canasta - Vista Gráfica");
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked") 
@@ -56,9 +66,12 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         btnCDescarte = new javax.swing.JButton();
         btnMazo = new javax.swing.JButton();
         panelJ4 = new javax.swing.JPanel();
+        txtInfo = new javax.swing.JTextField();
+        lblPuntajeMin = new javax.swing.JLabel();
+        lblPuntaje1 = new javax.swing.JLabel();
+        btnF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         panelBtns.setOpaque(false);
 
@@ -117,11 +130,11 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         panelJ3.setLayout(panelJ3Layout);
         panelJ3Layout.setHorizontalGroup(
             panelJ3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 213, Short.MAX_VALUE)
+            .addGap(0, 60, Short.MAX_VALUE)
         );
         panelJ3Layout.setVerticalGroup(
             panelJ3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 131, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
         panelCombR.setOpaque(false);
@@ -132,11 +145,11 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         panelJ2.setLayout(panelJ2Layout);
         panelJ2Layout.setHorizontalGroup(
             panelJ2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
         panelJ2Layout.setVerticalGroup(
             panelJ2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 131, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
         panelCartas.setOpaque(false);
@@ -180,12 +193,23 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         panelJ4.setLayout(panelJ4Layout);
         panelJ4Layout.setHorizontalGroup(
             panelJ4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
         panelJ4Layout.setVerticalGroup(
             panelJ4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        lblPuntajeMin.setText("jLabel1");
+
+        lblPuntaje1.setText("jLabel1");
+
+        btnF.setText("F");
+        btnF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,43 +218,80 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(panelJ1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelBtns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelJ2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelCombE, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelJ3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelCombE, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelJ2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(panelCartas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
+                                .addComponent(panelCartas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panelJ3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(118, 118, 118)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelJ4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelCombR, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))))
+                            .addComponent(panelCombR, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(panelJ4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtInfo)
+                                .addGap(264, 264, 264))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnF, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(panelBtns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblPuntaje1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                            .addComponent(lblPuntajeMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelCombE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelJ3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelCombR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelCombE, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                            .addComponent(panelCombR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(panelJ4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panelJ2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(panelJ3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelCartas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelJ2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelCartas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelJ4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelJ1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelBtns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblPuntajeMin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblPuntaje1)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelBtns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelJ1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btnF)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -256,8 +317,8 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         } else {
             try {
                 controlador.combinacion(pares);
-            } catch (RemoteException ex) {
-                System.getLogger(VistaGrafica.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (Exception ex) {
+                mostrarMensajeError(ex.getMessage());
             }
             System.out.println("Intentando combinar " + pares.size() + " cartas.");
         }
@@ -281,8 +342,8 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             }
         
             controlador.descartar(par);
-        } catch (RemoteException ex) {
-            System.getLogger(VistaGrafica.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
         }
     }//GEN-LAST:event_btnDescartarActionPerformed
 
@@ -292,8 +353,8 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             if (estadoTurno.equals(EstadoTurno.TOMAR_CARTA)) {
                 controlador.tomar("DESCARTE");
             }
-        } catch (RemoteException ex) {
-            System.getLogger(VistaGrafica.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
         }
     }//GEN-LAST:event_btnCDescarteActionPerformed
 
@@ -303,18 +364,23 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             if (estadoTurno.equals(EstadoTurno.TOMAR_CARTA)) {
                 controlador.tomar("MAZO");
             }
-        } catch (RemoteException ex) {
-            System.getLogger(VistaGrafica.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
         }
     }//GEN-LAST:event_btnMazoActionPerformed
 
     private void btnRetirarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarseActionPerformed
         try {
+            btnRetirarse.setEnabled(false);
             controlador.solicitarRetiro();
-        } catch (RemoteException ex) {
-            System.getLogger(VistaGrafica.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
         }
     }//GEN-LAST:event_btnRetirarseActionPerformed
+
+    private void btnFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFActionPerformed
+        mostrarFin();
+    }//GEN-LAST:event_btnFActionPerformed
 
     @Override
     public void responderSolicitudRetiro() {
@@ -331,15 +397,12 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             opciones[0]                 
         );
 
-        if (seleccion == 0) { 
-            //controlador.responderRetiro();
-        } else {              
-            //controlador.responderRetiro(false);
+        try {
+            if (seleccion == 0) { controlador.responderRetiro(true); } 
+            else { controlador.responderRetiro(false); }
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
         }
-    }
-    
-    private boolean responderRetiro() {
-        return false;
     }
     
     private void mostrarPanelComb(JPanel panelComb, IEquipo equipo) throws RemoteException {
@@ -541,8 +604,11 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             java.awt.Image img = new ImageIcon(imgURL).getImage();
             return new ImageIcon(img.getScaledInstance(grosor, altura, escala));
         }
-        return null;
-    }
+        else {
+            System.out.println("ERROR: No se encontró el archivo en: " + ruta);
+            return null;
+        }
+}
     
     private ImageIcon rotarIcono(ImageIcon icono) {
         Image img = icono.getImage();
@@ -593,6 +659,16 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         return new ImageIcon(bi);
     }
     
+    private void mostrarPuntaje() {
+        try {
+            IEquipo equipo = controlador.getEquipo(controlador.getJugador());
+            lblPuntaje1.setText("Puntaje equipo: " + equipo.getPuntaje().toString());
+            lblPuntajeMin.setText("Puntaje comb. minima: " + equipo.getPuntajeCombinacionMinima().toString());
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
+        }
+    }
+    
     @Override
     public void mostrarJuego() {
         try {
@@ -602,14 +678,21 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             habilitarControles();
             mostrarPanelJ1();
             mostrarPanelCartas();
-        } catch (RemoteException ex) {
-            System.getLogger(VistaGrafica.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            mostrarPuntaje();
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
         }
     }
 
     @Override
     public void mostrarFin() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            panelCartas.removeAll();
+            mostrarEquipoGanador();
+            controlador.terminarJuego();
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
+        }
     }
 
     @Override
@@ -620,26 +703,58 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
     public void habilitarControles() 
     {        
         try {
-            boolean turno = false;
-            IJugador jugador = controlador.getJugador();
-            IJugador jugadorEnTurno = controlador.getJugadorEnTurno();
-            if (jugador.equals(jugadorEnTurno)) turno = true;
-            btnCombinar.setEnabled(turno);
-            btnDescartar.setEnabled(turno);
-            btnRetirarse.setEnabled(turno);
-            btnMazo.setEnabled(turno);
-            btnCDescarte.setEnabled(turno);
-        } catch (RemoteException ex) {
-            System.getLogger(VistaGrafica.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            boolean activado = false;
+            boolean turno = controlador.validarJugadorEnTurno();
+            EstadoJuego estadoJuego = controlador.getEstadoJuego();
+            if (estadoJuego == EstadoJuego.CORRIENDO && turno) { activado = true; }
+            btnCombinar.setEnabled(activado);
+            btnDescartar.setEnabled(activado);
+            btnRetirarse.setEnabled(activado);
+            btnMazo.setEnabled(activado);
+            btnCDescarte.setEnabled(activado);
+            if(activado) txtInfo.setText("Es su turno!");
+            else txtInfo.setText("No es su turno!");
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
         }
+    }
+    
+    public void mostrarEquipoGanador() {
+        try {
+            IEquipo equipoGanador = controlador.getGanador();
+            IEquipo equipoJugador = controlador.getEquipo(controlador.getJugador());
+
+            JLabel lblResultado = new JLabel();
+            lblResultado.setHorizontalAlignment(SwingConstants.CENTER);
+            lblResultado.setVerticalAlignment(SwingConstants.CENTER);
+            lblResultado.setFont(new Font("Arial", Font.BOLD, 60)); 
+
+            if (equipoGanador.getId() == equipoJugador.getId()) { txtInfo.setText("¡GANASTE!"); } 
+            else { txtInfo.setText("¡PERDISTE!"); }
+
+            panelCartas.setLayout(new BorderLayout());
+            panelCartas.add(lblResultado, BorderLayout.CENTER);
+            panelCartas.revalidate();
+            panelCartas.repaint();
+                
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
+        }
+    }
+    
+    public void mostrarMensajeError(String error) {
+        JOptionPane.showMessageDialog(this, error);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCDescarte;
     private javax.swing.JButton btnCombinar;
     private javax.swing.JButton btnDescartar;
+    private javax.swing.JButton btnF;
     private javax.swing.JButton btnMazo;
     private javax.swing.JButton btnRetirarse;
+    private javax.swing.JLabel lblPuntaje1;
+    private javax.swing.JLabel lblPuntajeMin;
     private javax.swing.JPanel panelBtns;
     private javax.swing.JPanel panelCartas;
     private javax.swing.JPanel panelCombE;
@@ -648,6 +763,7 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
     private javax.swing.JPanel panelJ2;
     private javax.swing.JPanel panelJ3;
     private javax.swing.JPanel panelJ4;
+    private javax.swing.JTextField txtInfo;
     // End of variables declaration//GEN-END:variables
 
 }
