@@ -308,14 +308,24 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
     
     @Override
     public void mostrarFin() {
-        IEquipo equipo;
         try {
-            equipo = controlador.getGanador();
-            concatenar("el equipo " + equipo.getId() + " es el ganador");
-            controlador.terminarJuego();
+            mostrarEquipoGanador();
+            //controlador.terminarJuego();
         } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             mostrarMensajeError(ex.getMessage());
+        }
+    }
+    
+    public void mostrarEquipoGanador() {
+        try {
+            IEquipo equipoGanador = controlador.getGanador();
+            IEquipo equipoJugador = controlador.getEquipo(controlador.getJugador());
+            
+            if (equipoGanador.getId() == equipoJugador.getId()) concatenar("¡GANASTE LA PARTIDA!"); 
+            else concatenar("¡PERDISTE LA PARTIDA!");
+        } catch (RemoteException ex) {
+            System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
     

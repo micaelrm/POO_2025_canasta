@@ -30,7 +30,7 @@ public class Equipo implements IEquipo, Serializable {
         idEquipos++;
         this.primerCombinacion = false;
         this.puntajeCombinacionMinima = 15;
-        this.canastaNatural = 0;
+        this.canastaNatural = 1;
         this.canastaMixta = 0;
         this.tresRojos = 0;
     }

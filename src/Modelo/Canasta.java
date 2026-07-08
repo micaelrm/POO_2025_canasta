@@ -326,14 +326,14 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     
     public ArrayList<Carta> convertirCombinacion(ArrayList<Pair <Valor, Palo>> lista, Jugador j) {
         ArrayList<Carta> combinacion = new ArrayList<>();
-        Mano mano = j.getMano();
-         
+        ArrayList<Carta> copiaMano = new ArrayList<>(j.getMano().getCartas());
+
         for (Pair<Valor, Palo> par : lista) {
-            for (Carta carta : mano.getCartas()) {
+            for (Carta carta : copiaMano) {
                 boolean esJoker = (par.getKey() == Valor.JOKER && carta.getValor() == Valor.JOKER);
-                if (esJoker || carta.getValor() == par.getKey() && carta.getPalo() == par.getValue()) {
+                if (esJoker || (carta.getValor() == par.getKey() && carta.getPalo() == par.getValue())) {
                     combinacion.add(carta);
-                    j.getMano().eliminarCarta(carta);
+                    copiaMano.remove(carta); 
                     break;
                 }
             }
@@ -357,6 +357,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     }
     
     public boolean validarCombinacion(ArrayList<Pair<Valor, Palo>> lista, Jugador j) {
+        Combinacion existente = null;
         int naturales = 0;
         int comodines = 0;
         Valor valorCombinacion = null;
@@ -374,7 +375,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
             }
         }
 
-        Combinacion existente = (valorCombinacion != null) ? buscarCombinacionPorValor(valorCombinacion) : null;
+        if (valorCombinacion != null) existente = buscarCombinacionPorValor(valorCombinacion);
 
         if (existente != null) {
             if (naturales < 1 || comodines > 0) return false;
@@ -390,7 +391,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
 
             if (nueva.getListaCombinacion().size() == 7) {
                 if (nueva.contarComodines() == 0) nueva.setCanastaNatural(true);
-                else nueva.setCanastaMixta(false);
+                else nueva.setCanastaMixta(true);
             }
 
             nueva.actualizarPuntaje();
@@ -403,6 +404,10 @@ public class Canasta extends ObservableRemoto implements ICanasta {
             adminJugadores.getEquipo(j).agregarCombinacion(nueva);
             adminJugadores.getEquipo(j).actualizarPuntaje();
         }
+        
+        for (Carta cartaAEliminar : cartas) {
+            j.getMano().eliminarCarta(cartaAEliminar);
+        }  
         
         return true;
     }
@@ -430,8 +435,8 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     public void formarCombinacionAux(ArrayList<Pair <Valor, Palo>> pares) throws RemoteException {
         Jugador jugadorEnTurno = adminJugadores.getJugadorEnTurno();
         if (!(validarCombinacion(pares, jugadorEnTurno))) {
-            throw new RemoteException("Combinacion con formato incorrecto");
-        }
+            throw new RemoteException("Combinacion con formato incorrecto o puntaje menor al minimo");
+        } 
     }
     
     public boolean buscarCombinacionEnMano(Carta cartaBuscada, Jugador j) {

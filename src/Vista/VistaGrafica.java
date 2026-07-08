@@ -298,6 +298,7 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCombinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCombinarActionPerformed
+        try {
         ArrayList<Pair<Valor, Palo>> pares = new ArrayList<>();
 
         for (JToggleButton btnCarta : listaCombinacion) {
@@ -314,14 +315,15 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
 
         if (pares.isEmpty()) {
             System.out.println("No seleccionaste ninguna carta para combinar.");
+            throw new RemoteException("No selecciono ninguna carta para combinar");
         } else {
-            try {
-                controlador.combinacion(pares);
-            } catch (Exception ex) {
-                mostrarMensajeError(ex.getMessage());
-            }
+            controlador.combinacion(pares);
             System.out.println("Intentando combinar " + pares.size() + " cartas.");
+        } 
+        } catch (Exception ex) {
+                mostrarMensajeError(ex.getMessage());
         }
+            
     }//GEN-LAST:event_btnCombinarActionPerformed
 
     private void btnDescartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescartarActionPerformed
@@ -381,7 +383,7 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
     private void btnFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFActionPerformed
         try {
             controlador.terminarJuego();
-            //mostrarFin();
+            mostrarFin();
         } catch (RemoteException ex) {
             mostrarMensajeError(ex.getMessage());
         }
