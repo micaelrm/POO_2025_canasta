@@ -54,7 +54,7 @@ public class AdminJugadores {
         for (Equipo equipo : equipos) {
             primero = true;
             for (Jugador jugador : equipo.getJugadores()) {
-                if (primero == false) {
+                if (primero == true) {
                     turnos.add(jugador);
                     primero = false;
                 }

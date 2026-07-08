@@ -14,7 +14,6 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
     private ValidadorEntrada validador;
     private IControlador controlador;
     private boolean esperandoRespuestaRetiro = false;
-    private boolean nuevaPartida = false;
 
     public VistaConsola(IControlador controlador) {
         initComponents();
@@ -100,15 +99,6 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
             campoEntrada.setText("");
 
             try {
-                if (nuevaPartida) {
-                    if (entrada.equals("SI")) {
-                        //controlador.reiniciarCanasta();
-                        concatenar("Se iniciara una nueva partida");
-                    } else if (entrada.equals("NO")) {
-                        concatenar("No se iniciara una nueva partida");
-                    } else { concatenar("Entrada inválida. Por favor, escribe SI o NO."); }
-                }
-                
                 EstadoJugador estadoJugador = controlador.getJugadorEnTurno().getEstado();
                 if (estadoJugador == EstadoJugador.SOLICITUD) {
                     if (entrada.equals("SI")) {
@@ -129,12 +119,14 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
                     return;
                 }
 
-                if (entrada.equals("RETIRARSE") && controlador.siRetiradaActiva()) {
-                    controlador.solicitarRetiro();
-                    concatenar("Has solicitado retirarte. Esperando respuesta de tu compañero...");
-                    campoEntrada.setEnabled(false); 
-                    return;
-                } else concatenar("Aún no podes retirarte, no has completado una canasta");
+                if (entrada.equals("RETIRARSE")) {
+                    if (controlador.siRetiradaActiva()) {
+                        controlador.solicitarRetiro();
+                        concatenar("Has solicitado retirarte. Esperando respuesta de tu compañero...");
+                        campoEntrada.setEnabled(false);
+                    } else concatenar("Aún no podes retirarte, no has completado una canasta");
+                    return; 
+                }
                     
 
                 EstadoTurno estadoTurno = controlador.getEstadoTurno();
@@ -178,6 +170,7 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
     
     public void mostrarCombinacionesPuntaje() {
         try {
+            /*
             int numEquipo = 1;
             List<? extends IEquipo> equipos = controlador.getEquipos();
             for (IEquipo equipo : equipos) {
@@ -190,9 +183,27 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
                 }
                 numEquipo++;
                 concatenar("puntaje total: " + equipo.getPuntaje());
-                if (equipo.getCombinaciones().isEmpty()) {
-                    concatenar("Puntaje necesario para abrir: " + equipo.getPuntajeCombinacionMinima());
+                concatenar("Puntaje combinacion minima: " + equipo.getPuntajeCombinacionMinima());
+            }
+            */
+            List<? extends IEquipo> equipos = controlador.getEquipos();
+            for (IEquipo equipo : equipos) {
+                List<? extends ICombinacion> combinaciones = equipo.getCombinaciones();
+                concatenar("Combinaciones equipo " + equipo.getId());
+                if (combinaciones.isEmpty()) concatenar("no hay combinaciones");
+                else {
+                    for(ICombinacion combinacion : combinaciones) {
+                        for (ICarta carta : combinacion.getListaCombinacion()) { 
+                            if (carta.esNatural()) {
+                                int cantidad = combinacion.getListaCombinacion().size();
+                                concatenar("   " + carta.getValor() + "   " + carta.getPalo() + "   " + carta.getColor() + " x" + combinacion.getListaCombinacion().size());
+                                break;
+                            }
+                        }
+                    }
                 }
+                concatenar("puntaje total: " + equipo.getPuntaje());
+                concatenar("Puntaje combinacion minima: " + equipo.getPuntajeCombinacionMinima());
             }
         } catch (Exception ex) {
             System.getLogger(VistaConsola.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
@@ -308,6 +319,7 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
         }
     }
     
+    /*
     public void mensajeNuevaPartida() {
         concatenar("==========================================");
         concatenar("¡ATENCIÓN! Terminó la partida");
@@ -317,7 +329,7 @@ public class VistaConsola extends javax.swing.JFrame implements IVista{
         nuevaPartida = true;
         campoEntrada.setEnabled(true);   
     }
-    
+    */
     public void mostrarMensajeError(String error) {
         concatenar(error);
     }

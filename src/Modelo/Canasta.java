@@ -306,7 +306,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     
     public void tomarCartaDescarte() throws RemoteException {
         Jugador jugadorEnTurno = adminJugadores.getJugadorEnTurno();
-        Equipo equipoTurno = jugadorEnTurno.getEquipo();
+        Equipo equipoTurno = adminJugadores.getEquipo(jugadorEnTurno);
         Carta carta = descarte.getTopeDescarte();
         Combinacion combinacion = buscarCombinacionPorValor(carta.getValor());
         boolean valido;

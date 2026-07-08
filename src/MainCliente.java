@@ -10,7 +10,7 @@ import Vista.VistaConsola;
 import Vista.VistaGrafica;
 import ar.edu.unlu.rmimvc.cliente.IControladorRemoto;
 
-public class MainCliente {
+public class MainCliente {2
     private static final String clienteHost = "127.0.0.1";
     private static final String servidorHost = "127.0.0.1";
     private static final int clientePort = 0;

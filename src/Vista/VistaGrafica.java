@@ -673,7 +673,7 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         try {
             mostrarPanelesJ();
             mostrarPanelComb(panelCombR, controlador.getEquipoRival(controlador.getJugador()));
-            mostrarPanelComb(panelCombE, controlador.getJugador().getEquipo());
+            mostrarPanelComb(panelCombE, controlador.getEquipo(controlador.getJugadorEnTurno()));
             habilitarControles();
             mostrarPanelJ1();
             mostrarPanelCartas();
