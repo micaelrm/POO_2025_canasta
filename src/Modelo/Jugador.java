@@ -12,15 +12,23 @@ public class Jugador implements IJugador, Serializable{
     private int id;
     private String nombre;
     private Mano mano;
-    private Equipo equipo;
     private EstadoJugador estado;
 
-    public Jugador(Equipo equipo) { 
+    public Jugador() { 
         mano = new Mano(); 
-        this.equipo = equipo;
         this.id = idEstatico;
         idEstatico += 1;
         nombre = null;
+    }
+    
+    public void reiniciarJugador() {
+        mano.vaciar();
+        estado = EstadoJugador.ACTIVO;
+    }
+    
+    public boolean siManoVacia() {
+        if (mano.siManoVacia()) return true;
+        else return false;
     }
     
     public void tomarCarta(Carta carta) { mano.agregarCarta(carta); }
@@ -49,9 +57,7 @@ public class Jugador implements IJugador, Serializable{
         
         return puntajeMano;
     }
-    
-    @Override
-    public Equipo getEquipo() { return equipo; }
+
     
     @Override
     public int getId() { return id; }

@@ -11,4 +11,5 @@ public interface ICarta {
     Tipo getTipo();
     boolean getRotado(); 
     String toString();
+    boolean esNatural();
 }

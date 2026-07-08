@@ -23,11 +23,15 @@ public class AdminJugadores {
         this.persistencia = new Persistencia();
     } 
     
+    public void reiniciarEquipos() {
+        for (Equipo equipo : equipos) equipo.reiniciarEquipo(); 
+    }
+    
     public IJugador nuevoJugador() throws RemoteException {
         Jugador nuevoJugador = null;
         for (Equipo equipo : getEquipos()) {
             if (equipo.getJugadores().size() < 2) { 
-                nuevoJugador = new Jugador(equipo);
+                nuevoJugador = new Jugador();
                 equipo.agregarJugador(nuevoJugador);
                 agregarTurnos(nuevoJugador);
                 this.jugadorEnTurno = nuevoJugador;
@@ -35,6 +39,30 @@ public class AdminJugadores {
             } 
         }
         return nuevoJugador;
+    }
+    
+    public void sumarTresRojos(Jugador jugador) {
+        Equipo equipoEnTurno = getEquipo(jugador);
+        equipoEnTurno.sumarTresRojos();
+    }
+    
+    public void intercalarTurnos() {
+        turnos.clear();
+        Queue<Jugador> turnosAuxiliar = new LinkedList<>();
+        boolean primero;
+        
+        for (Equipo equipo : equipos) {
+            primero = true;
+            for (Jugador jugador : equipo.getJugadores()) {
+                if (primero == false) {
+                    turnos.add(jugador);
+                    primero = false;
+                }
+                else turnosAuxiliar.add(jugador);
+            }
+        }
+        
+        turnos.addAll(turnosAuxiliar);
     }
     
     public boolean verificarJugadoresRetirados() {
@@ -64,25 +92,6 @@ public class AdminJugadores {
     
     public void agregarTurnos(Jugador j) { turnos.offer(j); }
     
-    /*
-    public void intercalarTurnos() {
-        Stack<Jugador> aux1 = new Stack<>();
-        Stack<Jugador> aux2 = new Stack<>();
-
-        while(!turnos.isEmpty()) {
-            aux1.push(turnos.poll());
-            if(!turnos.isEmpty()) { 
-                aux2.push(turnos.poll());
-            }
-        }
-
-        while(!aux1.isEmpty() || !aux2.isEmpty()) {
-            if(!aux1.isEmpty()) turnos.offer(aux1.pop());
-            if(!aux2.isEmpty()) turnos.offer(aux2.pop());
-        }
-    }
-    */
-    
     public void avanzarTurno() {
         jugadorEnTurno = turnos.peek();
         turnos.offer(turnos.remove());
@@ -104,6 +113,18 @@ public class AdminJugadores {
             if (equipo.getJugadores().contains(j)) return equipo;
         }
         return null;  
+    }
+    
+    public boolean siManoVacia() {
+        for (Equipo equipo : equipos) {
+            if (equipo.siManoVacia()) return true;
+        }
+        return false;
+    }
+    
+    public boolean siRetiradaActiva() {
+        Equipo equipoEnTurno = getEquipo(jugadorEnTurno);
+        return equipoEnTurno.siRetiradaActiva();
     }
     
     public ArrayList<Equipo> getEquipos() { return equipos; }

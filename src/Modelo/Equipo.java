@@ -19,6 +19,7 @@ public class Equipo implements IEquipo, Serializable {
     private Integer puntajeCombinacionMinima;
     private Integer canastaNatural;
     private Integer canastaMixta;
+    private int tresRojos;
     
     public Equipo () {
         this.puntaje = 0;
@@ -31,6 +32,12 @@ public class Equipo implements IEquipo, Serializable {
         this.puntajeCombinacionMinima = 15;
         this.canastaNatural = 0;
         this.canastaMixta = 0;
+        this.tresRojos = 0;
+    }
+    
+    public void reiniciarEquipo() {
+        combinaciones.clear();
+        for (Jugador jugador : jugadores) jugador.reiniciarJugador(); 
     }
     
     public void agregarJugador(Jugador j) { jugadores.add(j); }
@@ -45,13 +52,26 @@ public class Equipo implements IEquipo, Serializable {
     }
     
     public void calcularPuntajeFinal() {
-        int penalizacion = jugadores.getFirst().getPuntajeMano() + jugadores.getLast().getPuntajeMano();
+        int penalizacion = calcularPenalizacion();
         int puntajeCanastaNatural = canastaNatural * 500;
         int puntajeCanastaMixta = canastaMixta * 300;
         int puntajeRetirada = 0;
         if (verificarJugadoresRetirados()) puntajeRetirada = 100;
+        if (tresRojos == 4) puntaje += 400;
         
         this.puntaje = puntaje + puntajeCanastaNatural + puntajeCanastaMixta + puntajeRetirada - penalizacion;
+    }
+    
+    public int calcularPenalizacion() {
+        int penalizacion = jugadores.getFirst().getPuntajeMano() + jugadores.getLast().getPuntajeMano();
+        if (combinaciones.isEmpty()) penalizacion += puntaje;
+        
+        return penalizacion;
+    }
+    
+    public boolean siRetiradaActiva() {
+        if (canastaMixta >= 1 || canastaNatural >= 1) return true;
+        else return false;
     }
    
     public void setPuntajeCombinacionMinima() {
@@ -94,6 +114,8 @@ public class Equipo implements IEquipo, Serializable {
         return null;
     }
     
+    public int getTresRojos() { return tresRojos; }
+    
     @Override
     public int getId() { return id; }
     
@@ -122,6 +144,13 @@ public class Equipo implements IEquipo, Serializable {
         else return false;
     }
     
+    public boolean siManoVacia() {
+        for (Jugador jugador : jugadores) {
+            if (jugador.siManoVacia()) return true;
+        }
+        return false;
+    }
+    
     public void setNombre(String nombre, IJugador jugador) {
         getJugador(jugador).setNombre(nombre);
     }
@@ -131,6 +160,8 @@ public class Equipo implements IEquipo, Serializable {
     public void setPuntajeAnterior(int puntajeAnterior) { this.puntajeAnterior = puntajeAnterior; }
     
     public void setPrimerCombinacion(boolean primerCombinacion) { this.primerCombinacion = primerCombinacion; }
+    
+    public void sumarTresRojos() { tresRojos += 1; }
         
     @Override
     public boolean equals(Object o) {

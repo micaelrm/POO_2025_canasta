@@ -39,7 +39,7 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         
         initComponents();
         txtInfo.setForeground(java.awt.Color.BLACK);
-        txtInfo.setEnabled(false);
+        txtInfo.setEditable(false);
         lblPuntaje1.setEnabled(false);
         lblPuntajeMin.setEnabled(false);
         
@@ -379,7 +379,12 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
     }//GEN-LAST:event_btnRetirarseActionPerformed
 
     private void btnFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFActionPerformed
-        mostrarFin();
+        try {
+            controlador.terminarJuego();
+            //mostrarFin();
+        } catch (RemoteException ex) {
+            mostrarMensajeError(ex.getMessage());
+        }
     }//GEN-LAST:event_btnFActionPerformed
 
     @Override
@@ -411,18 +416,18 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         List<? extends ICombinacion> combinaciones = equipo.getCombinaciones();
 
         for(ICombinacion combinacion : combinaciones) {
-            ICarta carta = combinacion.getListaCombinacion().getFirst();
-            int cantidad = combinacion.getListaCombinacion().size();
-
-            ImageIcon icono = getIconoCarta(carta, 25, 45, Image.SCALE_SMOOTH);
-            JLabel labelCombinacion = new JLabel();
-
-            labelCombinacion.setIcon(icono);
-            labelCombinacion.setText(String.valueOf(cantidad));
-
-            panelComb.add(labelCombinacion);
+            for (ICarta carta : combinacion.getListaCombinacion()) { 
+                if (carta.esNatural()) {
+                    int cantidad = combinacion.getListaCombinacion().size();
+                    ImageIcon icono = getIconoCarta(carta, 25, 45, Image.SCALE_SMOOTH);
+                    JLabel labelCombinacion = new JLabel();
+                    labelCombinacion.setIcon(icono);
+                    labelCombinacion.setText(String.valueOf(cantidad));
+                    panelComb.add(labelCombinacion);
+                    break;
+                }
+            }
         }
-        
         panelComb.revalidate();
         panelComb.repaint();  
     }
@@ -615,17 +620,13 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         int ancho = icono.getIconWidth();
         int alto = icono.getIconHeight();
 
-        java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(
-            alto, ancho, java.awt.image.BufferedImage.TYPE_INT_ARGB
-        );
+        java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(alto, ancho, java.awt.image.BufferedImage.TYPE_INT_ARGB);
 
         java.awt.Graphics2D g2d = bi.createGraphics();
 
-        g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, 
-                             java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, 
-                             java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
         g2d.translate(alto, 0);
         g2d.rotate(Math.PI / 2);
@@ -640,9 +641,7 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
         int anchoMax = Math.max(iconoFondoRotado.getIconWidth(), iconoFrenteVertical.getIconWidth());
         int altoMax = Math.max(iconoFondoRotado.getIconHeight(), iconoFrenteVertical.getIconHeight());
 
-        java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(
-            anchoMax, altoMax, java.awt.image.BufferedImage.TYPE_INT_ARGB
-        );
+        java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(anchoMax, altoMax, java.awt.image.BufferedImage.TYPE_INT_ARGB);
 
         java.awt.Graphics2D g2d = bi.createGraphics();
         g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
@@ -687,12 +686,46 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
     @Override
     public void mostrarFin() {
         try {
-            panelCartas.removeAll();
+            bloquearBotones();
             mostrarEquipoGanador();
             controlador.terminarJuego();
+            //mensajeNuevaPartida();
         } catch (Exception ex) {
             mostrarMensajeError(ex.getMessage());
         }
+    }
+    
+    /*
+    public void mensajeNuevaPartida() {
+        Object[] opciones = {"Aceptar", "Rechazar"};
+
+        int seleccion = JOptionPane.showOptionDialog(
+            this, 
+            "¿Jugar nueva partida?", 
+            "Ha terminado la partida", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.WARNING_MESSAGE, 
+            null,                       
+            opciones,                   
+            opciones[0]                 
+        );
+
+        try {
+            if (seleccion == 0) controlador.reiniciarCanasta(); 
+        } catch (Exception ex) {
+            mostrarMensajeError(ex.getMessage());
+        }
+    }
+    */
+    
+    public void bloquearBotones() {
+        btnCDescarte.setEnabled(false);
+        btnCombinar.setEnabled(false);
+        btnDescartar.setEnabled(false);
+        btnF.setEnabled(false);
+        btnMazo.setEnabled(false);
+        btnRetirarse.setEnabled(false);
+   
     }
 
     @Override
@@ -709,11 +742,13 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             if (estadoJuego == EstadoJuego.CORRIENDO && turno) { activado = true; }
             btnCombinar.setEnabled(activado);
             btnDescartar.setEnabled(activado);
-            btnRetirarse.setEnabled(activado);
             btnMazo.setEnabled(activado);
             btnCDescarte.setEnabled(activado);
             if(activado) txtInfo.setText("Es su turno!");
             else txtInfo.setText("No es su turno!");
+            
+            boolean retirarse = controlador.siRetiradaActiva();
+            btnRetirarse.setEnabled(retirarse);
         } catch (Exception ex) {
             mostrarMensajeError(ex.getMessage());
         }
@@ -729,14 +764,15 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             lblResultado.setVerticalAlignment(SwingConstants.CENTER);
             lblResultado.setFont(new Font("Arial", Font.BOLD, 60)); 
 
-            if (equipoGanador.getId() == equipoJugador.getId()) { txtInfo.setText("¡GANASTE!"); } 
-            else { txtInfo.setText("¡PERDISTE!"); }
+            if (equipoGanador.getId() == equipoJugador.getId()) { txtInfo.setText("¡GANASTE LA PARTIDA!"); } 
+            else { txtInfo.setText("¡PERDISTE LA PARTIDA!"); }
 
+            /*
             panelCartas.setLayout(new BorderLayout());
             panelCartas.add(lblResultado, BorderLayout.CENTER);
             panelCartas.revalidate();
             panelCartas.repaint();
-                
+            */  
         } catch (Exception ex) {
             mostrarMensajeError(ex.getMessage());
         }

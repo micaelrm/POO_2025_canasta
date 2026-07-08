@@ -17,6 +17,16 @@ public class Mano implements IMano, Serializable {
         this.combinacion = new ArrayList<Carta>(); 
     }
     
+    public void vaciar() {
+        cartas.clear();
+        combinacion.clear();
+    }
+    
+    public boolean siManoVacia() {
+        if (cartas.isEmpty()) return true;
+        else return false;
+    }
+    
     public void agregarCarta(Carta carta) { cartas.add(carta); }
        
     public void eliminarCarta(Carta carta) { cartas.remove(carta); }

@@ -26,10 +26,31 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         estadoJuego = EstadoJuego.ESPERA;
     }
     
+    /*
+    public void reiniciarCanasta() throws RemoteException {
+        try {
+            estadoJuego = EstadoJuego.CORRIENDO;
+
+            mazo = new Mazo(); 
+            descarte = new Descarte(); 
+
+            adminJugadores.reiniciarEquipos();
+            adminJugadores.lecturaEquipos();
+            repartirCartas();
+            descarte.agregarCartaDescarte(mazo);
+            notificarObservadores();
+        } catch (IOException ex) {
+            System.getLogger(Canasta.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(Canasta.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    */
+    
     @Override
     public void iniciarJuego() throws RemoteException {
         try {
-            //adminJugadores.intercalarTurnos();
+            adminJugadores.intercalarTurnos();
             adminJugadores.lecturaEquipos();
             repartirCartas();
             descarte.agregarCartaDescarte(mazo);
@@ -46,13 +67,14 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     public void revisarCondiciones() throws RemoteException {
         boolean mazoVacio = mazo.siCero();
         boolean puntaje = adminJugadores.verificarPuntaje();
-        if (mazoVacio || puntaje) estadoJuego = EstadoJuego.FIN;
+        boolean manoVacia = adminJugadores.siManoVacia();
+        if (mazoVacio || puntaje || manoVacia) estadoJuego = EstadoJuego.FIN;
         notificarObservadores();
     }
     
     @Override
     public void terminarJuego() throws RemoteException {
-        ArrayList<RegistroPuntajes> registros = crearRegistros();
+        ArrayList<RegistroPuntajes> registros = adminJugadores.crearRegistros();
         try {
             if (adminJugadores.leer() == null) { adminJugadores.guardar(registros); }
             else adminJugadores.actualizar(registros);
@@ -114,6 +136,11 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         adminJugadores.setEstadoTurno(EstadoTurno.COMBINAR_DESCARTAR_CARTA);
         if (mazo.siCero()) estadoJuego = EstadoJuego.FIN;
         revisarCondiciones();
+    }
+    
+    @Override
+    public boolean siRetiradaActiva() throws RemoteException {
+        return adminJugadores.siRetiradaActiva();
     }
     
     @Override
@@ -240,6 +267,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
                     if(carta.getTipo() == Tipo.TRES && carta.getColor() == Color.ROJO) {
                         cantCarta--;
                         validarCombinacionTres(carta, jugador);
+                        adminJugadores.sumarTresRojos(jugador);
                     }
                     else jugador.tomarCarta(carta);
                 }
@@ -248,8 +276,16 @@ public class Canasta extends ObservableRemoto implements ICanasta {
     }
     
     public void tomarCartaPila() throws RemoteException {
-        Carta carta = mazo.cederCarta();
-        adminJugadores.getJugadorEnTurno().tomarCarta(carta);
+        Carta carta;
+        Jugador jugador = adminJugadores.getJugadorEnTurno();
+        do {
+            carta = mazo.cederCarta();
+            if (carta.getTipo() == Tipo.TRES && carta.getColor() == Color.ROJO) {
+                validarCombinacionTres(carta, jugador);
+                adminJugadores.sumarTresRojos(jugador);
+            }
+        } while (carta.getTipo() == Tipo.TRES && carta.getColor() == Color.ROJO);
+        jugador.tomarCarta(carta);
     }
     
     public void descartarCarta(Pair<Valor, Palo> par) throws RemoteException {
@@ -278,20 +314,24 @@ public class Canasta extends ObservableRemoto implements ICanasta {
             valido = buscarCombinacionEnManoNatural(carta, jugadorEnTurno);
         }
         else valido = buscarCombinacionEnMano(carta, jugadorEnTurno);
+   
         if (combinacion == null && !valido) {
-            throw new IllegalStateException();
+            throw new RemoteException("No es posible tomar el tope del descarte, no podes usarlo en una combinacion");
         }
         
         jugadorEnTurno.tomarCartasDescarte(descarte.getDescarte());
         descarte.vaciarDescarte();
+        descarte.agregarCartaDescarte(mazo);
     }
     
-    public ArrayList<Carta> convertirCombinacion(ArrayList<Pair <Valor, Palo>> lista, Jugador j) throws RemoteException {
+    public ArrayList<Carta> convertirCombinacion(ArrayList<Pair <Valor, Palo>> lista, Jugador j) {
         ArrayList<Carta> combinacion = new ArrayList<>();
         Mano mano = j.getMano();
+         
         for (Pair<Valor, Palo> par : lista) {
             for (Carta carta : mano.getCartas()) {
-                if (carta.getValor() == par.getKey() && carta.getPalo() == par.getValue()) {
+                boolean esJoker = (par.getKey() == Valor.JOKER && carta.getValor() == Valor.JOKER);
+                if (esJoker || carta.getValor() == par.getKey() && carta.getPalo() == par.getValue()) {
                     combinacion.add(carta);
                     j.getMano().eliminarCarta(carta);
                     break;
@@ -301,7 +341,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return combinacion;
     }
     
-    public Carta convertirCombinacion(Pair<Valor, Palo> par, Jugador j) throws RemoteException {
+    public Carta convertirCombinacion(Pair<Valor, Palo> par, Jugador j) {
         Valor valorBuscado = par.getKey();
         Palo paloBuscado = par.getValue();
 
@@ -316,47 +356,35 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return null;
     }
     
-    public boolean validarCombinacion(ArrayList<Pair<Valor, Palo>> lista, Jugador j) throws RemoteException {
+    public boolean validarCombinacion(ArrayList<Pair<Valor, Palo>> lista, Jugador j) {
+        int naturales = 0;
+        int comodines = 0;
+        Valor valorCombinacion = null;
+        
         ArrayList<Carta> cartas = convertirCombinacion(lista, j);
         if (cartas == null) { return false; }
 
-        // REVISAR
-        //if (cartas.size() < 3) return false; 
-
-        int naturales = 0;
-        int comodines = 0;
-        Valor baseValor = null;
-
         for (Carta carta : cartas) {
-            if (carta.getTipo() == Tipo.TRES && carta.getColor() == Color.NEGRO) { return false; } 
-            else if (carta.getTipo() == Tipo.COMODIN) { comodines++; } 
+            if (carta.getTipo() == Tipo.TRES && carta.getColor() == Color.NEGRO) return false;  
+            else if (carta.getTipo() == Tipo.COMODIN) comodines++; 
             else if (carta.getTipo() == Tipo.NATURAL) {
                 naturales++;
-                if (baseValor == null) baseValor = carta.getValor();
-                else if (carta.getValor() != baseValor) return false;
+                if (valorCombinacion == null) valorCombinacion = carta.getValor();
+                else if (carta.getValor() != valorCombinacion) return false;
             }
         }
 
-        Combinacion existente = (baseValor != null) ? buscarCombinacionPorValor(baseValor) : null;
+        Combinacion existente = (valorCombinacion != null) ? buscarCombinacionPorValor(valorCombinacion) : null;
 
         if (existente != null) {
-            int existentesNaturales = existente.contarNaturales();
-            int existentesComodines = existente.contarComodines();
-
-            int totalNaturales = existentesNaturales + naturales;
-            int totalComodines = existentesComodines + comodines;
-            int totalSize = existente.getListaCombinacion().size() + cartas.size();
-
-            if (totalComodines > 3) return false;
-
-            if (totalSize >= 7 && totalNaturales < 4) return false;
+            if (naturales < 1 || comodines > 0) return false;
 
             for (Carta carta : cartas) existente.combinarCarta(carta); 
             existente.actualizarPuntaje();
             adminJugadores.getEquipo(j).actualizarPuntaje();
-            return true;
         } else {
-            if (naturales < 2 || comodines > 3 || cartas.size() > 7) return false;
+            if (cartas.size() < 3 || naturales < 2 || comodines > 3) return false;
+            
             Combinacion nueva = new Combinacion();
             for (Carta carta : cartas) nueva.combinarCarta(carta); 
 
@@ -374,12 +402,12 @@ public class Canasta extends ObservableRemoto implements ICanasta {
             
             adminJugadores.getEquipo(j).agregarCombinacion(nueva);
             adminJugadores.getEquipo(j).actualizarPuntaje();
-            return true;
         }
+        
+        return true;
     }
     
     public boolean validarCombinacionTres(Carta carta, Jugador j) throws RemoteException {
-
         if (carta == null) { return false; }
 
         Combinacion existente = buscarCombinacionPorValor(Valor.TRES);
@@ -388,25 +416,25 @@ public class Canasta extends ObservableRemoto implements ICanasta {
             existente.combinarCarta(carta); 
             existente.actualizarPuntaje();
             adminJugadores.getEquipo(j).actualizarPuntaje();
-            return true;
         } else {
             Combinacion nueva = new Combinacion();
             nueva.combinarCarta(carta); 
             nueva.actualizarPuntaje();
             adminJugadores.getEquipo(j).agregarCombinacion(nueva);
             adminJugadores.getEquipo(j).actualizarPuntaje();
-            return true;
         }
+        
+        return true;
     }
     
     public void formarCombinacionAux(ArrayList<Pair <Valor, Palo>> pares) throws RemoteException {
         Jugador jugadorEnTurno = adminJugadores.getJugadorEnTurno();
         if (!(validarCombinacion(pares, jugadorEnTurno))) {
-            throw new IllegalStateException();
+            throw new RemoteException("Combinacion con formato incorrecto");
         }
     }
     
-    public boolean buscarCombinacionEnMano(Carta cartaBuscada, Jugador j) throws RemoteException {
+    public boolean buscarCombinacionEnMano(Carta cartaBuscada, Jugador j) {
         boolean valido = true;
         Mano mano = j.getMano();
         ArrayList<Carta> cartas = mano.getCartas();
@@ -420,7 +448,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return valido;
     }
     
-    public boolean buscarCombinacionEnManoNatural(Carta cartaBuscada, Jugador j) throws RemoteException {
+    public boolean buscarCombinacionEnManoNatural(Carta cartaBuscada, Jugador j) {
         boolean valido = true;
         Mano mano = j.getMano();
         ArrayList<Carta> cartas = mano.getCartas();
@@ -433,7 +461,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return valido;
     }
     
-    public Combinacion buscarCombinacionPorValor(Valor valor) throws RemoteException {
+    public Combinacion buscarCombinacionPorValor(Valor valor) {
         ArrayList<Combinacion> combinaciones = adminJugadores.getEquipo(adminJugadores.getJugadorEnTurno()).getCombinaciones();
         for (Combinacion combinacion : combinaciones) {
             Carta base = combinacion.getCartaNaturalTres(); 
@@ -444,44 +472,8 @@ public class Canasta extends ObservableRemoto implements ICanasta {
         return null;
     }
     
+    
     //---------------------------------------------------------------------------
 
-    
-    public void lecturaEquipos() throws IOException, ClassNotFoundException, RemoteException {
-        ArrayList<Equipo> equipos = adminJugadores.getEquipos();
-        ArrayList<RegistroPuntajes> registrosGuardados = adminJugadores.leer();
-        
-        if (registrosGuardados != null) {
-            for (Equipo equipo : equipos) {
-                String equipoNJ1 = equipo.getJugadores().getFirst().getNombre().trim();
-                String equipoNJ2 = equipo.getJugadores().getLast().getNombre().trim();
-                
-                for (RegistroPuntajes registro : registrosGuardados) {                
-                    String registroNJ1 = registro.getNombreJugador1().trim();
-                    String registroNJ2 = registro.getNombreJugador2().trim();
-                    
-                    if ((registroNJ1.equalsIgnoreCase(equipoNJ1) && registroNJ2.equalsIgnoreCase(equipoNJ2)) || 
-                        (registroNJ1.equalsIgnoreCase(equipoNJ2) && registroNJ2.equalsIgnoreCase(equipoNJ1))) {
-                        
-                        equipo.setPuntajeAnterior(registro.getPuntajeAnterior());
-                        equipo.setPuntajeCombinacionMinima();
-                    }
-                }   
-            }
-        }
-    }
-    
-    public ArrayList<RegistroPuntajes> crearRegistros() throws RemoteException {
-        ArrayList<RegistroPuntajes> registros = new ArrayList<>();
-        for (Equipo equipo : adminJugadores.getEquipos()) {
-            String nombreJ1 = equipo.getJugadores().getFirst().getNombre();
-            String nombreJ2 = equipo.getJugadores().getLast().getNombre();
-            int puntajeAnterior = equipo.getPuntaje();
-            RegistroPuntajes registro = new RegistroPuntajes(nombreJ1, nombreJ2, puntajeAnterior);
-            registros.add(registro);
-        }
-        
-        return registros;
-    }
     
 }

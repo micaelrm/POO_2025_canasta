@@ -43,13 +43,13 @@ public class MainCliente {
 
     private static final String clienteHost = "127.0.0.1";
     private static final String servidorHost = "127.0.0.1";
-    private static final int clientePort = 0;
-    private static final int servidorPort = 1234;
+    private static final int clientePuerto = 0;
+    private static final int servidorPuerto = 1234;
 
     public static void main(String[] args) throws RemoteException {
         try {
             IControlador controlador = new Controlador();
-            Cliente cliente = new Cliente(clienteHost, clientePort, servidorHost, servidorPort);
+            Cliente cliente = new Cliente(clienteHost, clientePuerto, servidorHost, servidorPuerto);
             cliente.iniciar((IControladorRemoto) controlador);
             JFrame vistaMenu = new vistaMenu(controlador);
             java.awt.EventQueue.invokeLater(() -> vistaMenu.setVisible(true));

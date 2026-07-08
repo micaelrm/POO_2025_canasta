@@ -8,12 +8,14 @@ import javafx.util.Pair;
 
 
 public interface IControlador {
+    //void reiniciarCanasta() throws RemoteException;
     List<? extends IEquipo> getEquipos() throws RemoteException;
     ICarta getTopeDescarte() throws RemoteException;
     Integer getCantidadMazo() throws RemoteException;
     IJugador getJugador() throws RemoteException;
     IJugador getJugadorEnTurno() throws RemoteException;
     void setNombre(String nombre) throws RemoteException;
+    boolean siRetiradaActiva() throws RemoteException;
     boolean validarJugadorEnTurno() throws RemoteException;
     EstadoTurno getEstadoTurno() throws RemoteException;
     IEquipo getGanador() throws RemoteException;

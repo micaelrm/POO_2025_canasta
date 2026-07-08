@@ -11,6 +11,7 @@ import javafx.util.Pair;
 
 
 public interface ICanasta extends IObservableRemoto {
+    //void reiniciarCanasta() throws RemoteException;
     IJugador conectarJugador() throws RemoteException;
     void validarCantidadJugadores() throws RemoteException;
     void verificarJugadoresRetirados() throws RemoteException;
@@ -24,6 +25,7 @@ public interface ICanasta extends IObservableRemoto {
     void terminarJuego() throws RemoteException;
     void siguienteTurno() throws RemoteException;
     IJugador getJugadorEnTurno() throws RemoteException;
+    boolean siRetiradaActiva() throws RemoteException;
     Mano getMano() throws RemoteException;
     List<? extends IEquipo> getEquipos() throws RemoteException;
     List<? extends IJugador> getJugadores() throws RemoteException;

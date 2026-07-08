@@ -23,6 +23,12 @@ public class Controlador implements IControladorRemoto, IControlador {
         //conectar();
     }
     
+    /*
+    public void reiniciarCanasta() throws RemoteException {
+        modelo.reiniciarCanasta();
+    }
+    */
+    
     @Override
     public void conectar(String nombre) throws RemoteException {
         jugador = (IJugador) modelo.conectarJugador();
@@ -77,6 +83,11 @@ public class Controlador implements IControladorRemoto, IControlador {
     @Override
     public boolean validarJugadorEnTurno() throws RemoteException {
         return modelo.validarJugadorEnTurno(jugador);
+    }
+    
+    @Override
+    public boolean siRetiradaActiva() throws RemoteException {
+        return modelo.siRetiradaActiva();
     }
         
     @Override

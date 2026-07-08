@@ -45,6 +45,12 @@ public class Carta implements ICarta, Serializable{
     public boolean getRotado() { return rotado; }
     
     public void rotado() { this.rotado = !this.rotado; }
+    
+    @Override
+    public boolean esNatural() { 
+        if (tipo == Tipo.NATURAL) return true; 
+        else return false;
+    }
 
     @Override
     public String toString() {
