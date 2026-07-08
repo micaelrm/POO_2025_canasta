@@ -330,8 +330,7 @@ public class Canasta extends ObservableRemoto implements ICanasta {
 
         for (Pair<Valor, Palo> par : lista) {
             for (Carta carta : copiaMano) {
-                boolean esJoker = (par.getKey() == Valor.JOKER && carta.getValor() == Valor.JOKER);
-                if (esJoker || (carta.getValor() == par.getKey() && carta.getPalo() == par.getValue())) {
+                if (carta.getValor() == par.getKey() && carta.getPalo() == par.getValue()) {
                     combinacion.add(carta);
                     copiaMano.remove(carta); 
                     break;

@@ -615,7 +615,7 @@ public class VistaGrafica extends javax.swing.JFrame implements IVista{
             System.out.println("ERROR: No se encontró el archivo en: " + ruta);
             return null;
         }
-}
+    }
     
     private ImageIcon rotarIcono(ImageIcon icono) {
         Image img = icono.getImage();

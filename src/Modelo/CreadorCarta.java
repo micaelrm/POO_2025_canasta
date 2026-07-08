@@ -81,7 +81,7 @@ public class CreadorCarta {
         
         public static Carta crearJoker() {
             color = null;
-            palo = null;
+            palo = Palo.PICA;
             valor = Valor.JOKER;
             puntaje = 50;
             tipo = Tipo.COMODIN;  
